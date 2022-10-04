@@ -337,7 +337,7 @@ public class KafkaProducerPerf {
         parser.addArgument("--topic-nums")
                 .action(store())
                 .required(false)
-                .type(Long.class)
+                .type(Integer.class)
                 .metavar("NUM-TOPICS")
                 .dest("topicNum")
                 .setDefault(4)
