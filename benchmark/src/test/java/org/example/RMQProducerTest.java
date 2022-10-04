@@ -46,31 +46,31 @@ public class RMQProducerTest {
     public void testRMQProducer() throws MQClientException, MQBrokerException, RemotingException, InterruptedException {
         LongAdder totalMsg = new LongAdder();
         doNothing().when(producer).setInstanceName(anyString());
-        doNothing().when(producer).setNamesrvAddr(anyString());
+//        doNothing().when(producer).setNamesrvAddr(anyString());
         doNothing().when(producer).setCompressMsgBodyOverHowmuch(anyInt());
         doNothing().when(producer).start();
-        when(producer.getDefaultMQProducerImpl()).thenReturn(defaultMQProducerImpl);
+//        when(producer.getDefaultMQProducerImpl()).thenReturn(defaultMQProducerImpl);
 
-        when(defaultMQProducerImpl.getAsyncSenderExecutor()).thenReturn(e);
-        when(e.getQueue()).thenReturn(workQue);
-        doAnswer(invocation -> {
-            Random random = new Random();
-            if (random.nextInt(100) < 5) {
-                return RMQProducerPerf.getMaxLengthAsync()+1;
-            } else {
-                return 1;
-            }
-        }).when(workQue).size();
+//        when(defaultMQProducerImpl.getAsyncSenderExecutor()).thenReturn(e);
+//        when(e.getQueue()).thenReturn(workQue);
+//        doAnswer(invocation -> {
+//            Random random = new Random();
+//            if (random.nextInt(100) < 5) {
+//                return RMQProducerPerf.getMaxLengthAsync()+1;
+//            } else {
+//                return 1;
+//            }
+//        }).when(workQue).size();
         doAnswer(invocationOnMock -> {
             totalMsg.increment();
             return sendResult;
         }).when(producer).send((Message) any());
-        doAnswer(invocationOnMock -> {
-            SendCallback sendCallback = invocationOnMock.getArgument(1);
-            totalMsg.increment();
-            sendCallback.onSuccess(sendResult);
-            return null;
-        }).when(producer).send((Message) any(), (SendCallback) any());
+//        doAnswer(invocationOnMock -> {
+//            SendCallback sendCallback = invocationOnMock.getArgument(1);
+//            totalMsg.increment();
+//            sendCallback.onSuccess(sendResult);
+//            return null;
+//        }).when(producer).send((Message) any(), (SendCallback) any());
         doNothing().when(producer).shutdown();
         RMQProducerPerf.setProducer(producer);
         System.out.println("start");

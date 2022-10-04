@@ -23,7 +23,7 @@ public class KafkaProducerTest {
     public void testKafkaProducer() throws Exception {
         LongAdder totalMsg = new LongAdder();
 //        RecordMetadata recordMetadata = new RecordMetadata();
-        doNothing().when(producer).initTransactions();
+//        doNothing().when(producer).initTransactions();
         doAnswer(invocationOnMock -> {
             totalMsg.increment();
             Callback callback = invocationOnMock.getArgument(1);
