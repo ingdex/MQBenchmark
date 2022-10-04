@@ -176,7 +176,8 @@ public class KafkaProducerPerf {
                 if (messageNum > 0 && msgNumLimit == 0) {
                     break;
                 }
-                final String topicThisThread = topicList.get(i);
+                int threadPerTopic = threadNum / topicNum;
+                final String topicThisThread = topicList.get(i / threadPerTopic);
                 sendThreadPool.execute(new Runnable() {
                     @Override
                     public void run() {
