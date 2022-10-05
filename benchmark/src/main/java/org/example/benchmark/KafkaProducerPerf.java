@@ -82,7 +82,7 @@ public class KafkaProducerPerf {
             final List<String> topicList = new ArrayList<>();
             for (int i = 0; i < topicNum; i++) {
                 int numberOfDigits = SLMathUtil.getNumberOfDigits(topicNum);
-                String format = String.format("%%s%%%dd", numberOfDigits);
+                String format = String.format("%%s%%0%dd", numberOfDigits);
                 topicList.add(String.format(format, topic, i));
             }
             // since default value gets printed with the help text, we are escaping \n there and replacing it with correct value here.

@@ -103,7 +103,7 @@ public class RMQProducerPerf {
         final List<String> topicList = new ArrayList<>();
         for (int i=0; i<topicCount; i++) {
             int numberOfDigits = SLMathUtil.getNumberOfDigits(topicCount);
-            String format = String.format("%%s%%%dd", numberOfDigits);
+            String format = String.format("%%s%%0%dd", numberOfDigits);
             topicList.add(String.format(format, topic, i));
         }
 
@@ -198,7 +198,9 @@ public class RMQProducerPerf {
             if (messageNum > 0 && msgNumLimit == 0) {
                 break;
             }
-            final String topicThisThread = topicList.get(i);
+            int threadPerTopic = threadNum / topicCount;
+            final String topicThisThread = topicList.get(i / threadPerTopic);
+//            final String topicThisThread = topicList.get(i);
             sendThreadPool.execute(new Runnable() {
                 @Override
                 public void run() {
