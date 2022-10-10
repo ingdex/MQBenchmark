@@ -99,7 +99,7 @@ public class RMQProducerPerf {
         final boolean delayEnable = commandLine.hasOption('d') && Boolean.parseBoolean(commandLine.getOptionValue('d'));
         final int delayLevel = commandLine.hasOption('e') ? Integer.parseInt(commandLine.getOptionValue('e')) : 1;
         final boolean asyncEnable = commandLine.hasOption('y') && Boolean.parseBoolean(commandLine.getOptionValue('y'));
-        final int threadNum = asyncEnable ? 1 : commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 4;
+        final int threadNum = commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 4;
         final List<String> topicList = new ArrayList<>();
         for (int i=0; i<topicCount; i++) {
             int numberOfDigits = SLMathUtil.getNumberOfDigits(topicCount);
