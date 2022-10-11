@@ -83,11 +83,18 @@ public class RMQProducerPerf {
         }
         StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
         ExecutorService sendThreadPool = Executors.newFixedThreadPool(rmqConfs.length);
-        for (RMQConf conf: rmqConfs) {
+        for (int i=0; i<rmqConfs.length; i++) {
+            RMQConf conf = rmqConfs[i];
             String[] subArgs = toArgs(conf);
+            StringBuilder sb = new StringBuilder();
+            for (String arg: subArgs) {
+                sb.append(arg + " ");
+            }
+            System.out.println("subArgs: " + sb.toString());
+            String producerGroup = "producer_benchmark_" + i;
             sendThreadPool.execute(() -> {
                 try {
-                    RMQProducerPerf.start(subArgs, statsBenchmark);
+                    RMQProducerPerf.start(subArgs, statsBenchmark, producerGroup);
                 } catch (MQClientException e) {
                     throw new RuntimeException(e);
                 }
@@ -164,10 +171,10 @@ public class RMQProducerPerf {
         running.set(false);
     }
 
-    public static void start(String[] args, final StatsBenchmarkProducer statsBenchmark) throws MQClientException {
-        start(args, null, statsBenchmark);
+    public static void start(String[] args, final StatsBenchmarkProducer statsBenchmark, String producerGroup) throws MQClientException {
+        start(args, null, statsBenchmark, producerGroup);
     }
-    public static void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark) throws MQClientException {
+    public static void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark, String producerGroup) throws MQClientException {
         System.setProperty(RemotingCommand.SERIALIZE_TYPE_PROPERTY, SerializeType.ROCKETMQ.name());
 
         Options options = ServerUtil.buildCommandlineOptions(new Options());

@@ -83,7 +83,7 @@ public class RMQProducerTest {
                 throw new RuntimeException(ex);
             }
         }).start();
-        RMQProducerPerf.start(new String[]{"RMQProducerPerf", "-t", "topic"}, producer, statsBenchmarkProducer);
+        RMQProducerPerf.start(new String[]{"RMQProducerPerf", "-t", "topic"}, producer, statsBenchmarkProducer, "producer_benchmark");
 
         assertEquals(statsBenchmarkProducer.getSendRequestSuccessCount().longValue(), totalMsg.longValue());
         System.out.println("statsBenchmarkProducer.getSendRequestSuccessCount().longValue(): " + statsBenchmarkProducer.getSendRequestSuccessCount().longValue());
