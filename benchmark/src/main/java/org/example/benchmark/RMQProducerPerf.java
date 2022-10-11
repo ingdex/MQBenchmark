@@ -425,6 +425,14 @@ public class RMQProducerPerf {
         opt.setRequired(false);
         options.addOption(opt);
 
+        opt = new Option("p", "propertySize", true, "Property size, Default: 0");
+        opt.setRequired(false);
+        options.addOption(opt);
+
+        opt = new Option("tc", "topicCount", true, "Topic Count, Default: 1");
+        opt.setRequired(false);
+        options.addOption(opt);
+
         opt = new Option("l", "tagCount", true, "Tag count, Default: 0");
         opt.setRequired(false);
         options.addOption(opt);
