@@ -267,7 +267,7 @@ public class RMQProducerPerf {
             String sk = commandLine.hasOption("sk") ? String.valueOf(commandLine.getOptionValue("sk")) : AclClient.ACL_SECRET_KEY;
             rpcHook = AclClient.getAclRPCHook(ak, sk);
         }
-        final DefaultMQProducer producer = defaultMQProducer != null ? defaultMQProducer : new DefaultMQProducer("benchmark_producer", rpcHook, msgTraceEnable, null);
+        final DefaultMQProducer producer = defaultMQProducer != null ? defaultMQProducer : new DefaultMQProducer(producerGroup, rpcHook, msgTraceEnable, null);
 
         producer.setInstanceName(Long.toString(System.currentTimeMillis()));
 
