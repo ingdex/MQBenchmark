@@ -37,14 +37,14 @@ public class KafkaProducerTest {
         KafkaProducerPerf.setStatsBenchmark(statsBenchmark);
         new Thread(()->{
             try {
-                Thread.sleep(20000);
+                Thread.sleep(40000);
                 KafkaProducerPerf.stop();
                 System.out.println("stopped");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }).start();
-        KafkaProducerPerf.main(new String[]{"--asyncEnable", "true", "--topic", "topic", "-s", "4096", "-n", "0", "--producer-props", "props=props"});
+        KafkaProducerPerf.start(new String[]{"--asyncEnable", "true", "--topic", "topic", "-s", "4096", "-n", "0", "--producer-props", "props=props"});
 
         System.out.println("statsBenchmark.getSendRequestSuccessCount()" + statsBenchmark.getSendRequestSuccessCount());
         System.out.println("totalMsg.longValue()" + totalMsg.longValue());

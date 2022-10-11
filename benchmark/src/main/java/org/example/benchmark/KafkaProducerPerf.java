@@ -60,7 +60,7 @@ public class KafkaProducerPerf {
         running.set(false);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void start(String[] args) throws Exception {
         ArgumentParser parser = argParser();
         try {
             Namespace res = parser.parseArgs(args);

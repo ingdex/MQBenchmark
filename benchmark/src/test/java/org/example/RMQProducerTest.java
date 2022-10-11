@@ -72,10 +72,8 @@ public class RMQProducerTest {
 //            return null;
 //        }).when(producer).send((Message) any(), (SendCallback) any());
         doNothing().when(producer).shutdown();
-        RMQProducerPerf.setProducer(producer);
         System.out.println("start");
         StatsBenchmarkProducer statsBenchmarkProducer = new StatsBenchmarkProducer();
-        RMQProducerPerf.setStatsBenchmark(statsBenchmarkProducer);
         new Thread(() -> {
             try {
                 Thread.sleep(10000);
@@ -85,7 +83,7 @@ public class RMQProducerTest {
                 throw new RuntimeException(ex);
             }
         }).start();
-        RMQProducerPerf.main(new String[]{"RMQProducerPerf", "-t", "topic"});
+        RMQProducerPerf.start(new String[]{"RMQProducerPerf", "-t", "topic"}, producer, statsBenchmarkProducer);
 
         assertEquals(statsBenchmarkProducer.getSendRequestSuccessCount().longValue(), totalMsg.longValue());
         System.out.println("statsBenchmarkProducer.getSendRequestSuccessCount().longValue(): " + statsBenchmarkProducer.getSendRequestSuccessCount().longValue());

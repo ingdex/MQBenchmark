@@ -16,12 +16,18 @@
  */
 package org.example.benchmark;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.LongAdder;
+
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -55,15 +61,99 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class RMQProducerPerf {
-    private static DefaultMQProducer producer = null;
-    private static StatsBenchmarkProducer statsBenchmark = null;
+//    private static DefaultMQProducer producer = null;
+//    private static StatsBenchmarkProducer statsBenchmark = null;
     private static byte[] msgBody;
     private static final int MAX_LENGTH_ASYNC_QUEUE = 10000;
     private static final int SLEEP_FOR_A_WHILE = 100;
     private static AtomicBoolean running = new AtomicBoolean(true);
 
-    public static void setProducer(DefaultMQProducer producer) {
-        RMQProducerPerf.producer = producer;
+    public static void main(String[] args) throws FileNotFoundException {
+        if (args.length != 2 || !args[0].equals("-c")) {
+            System.out.println("Usage: RMQProducerPerf -c CONFIG.json");
+            return;
+        }
+        String path = args[1];
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new FileReader(path));
+        RMQConf[] rmqConfs = gson.fromJson(reader, RMQConf[].class);
+        System.out.println("Found " + rmqConfs.length + " rmqConf:");
+        for (RMQConf conf: rmqConfs) {
+            System.out.println(gson.toJson(conf));
+        }
+        StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
+        ExecutorService sendThreadPool = Executors.newFixedThreadPool(rmqConfs.length);
+        for (RMQConf conf: rmqConfs) {
+            String[] subArgs = toArgs(conf);
+            sendThreadPool.execute(() -> {
+                try {
+                    RMQProducerPerf.start(subArgs, statsBenchmark);
+                } catch (MQClientException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+    }
+
+    private static String[] toArgs(RMQConf conf) {
+        List<String> list = new ArrayList<>();
+        if (conf.topic != null) {
+            list.add("-t");
+            list.add(conf.topic);
+        }
+        if (conf.topicCount != null) {
+            list.add("-tc");
+            list.add(conf.topicCount.toString());
+        }
+        if (conf.messageSize != null) {
+            list.add("-s");
+            list.add(conf.messageSize.toString());
+        }
+        if (conf.keyEnable != null) {
+            list.add("-k");
+            list.add(conf.keyEnable.toString());
+        }
+        if (conf.propertySize != null) {
+            list.add("-p");
+            list.add(conf.propertySize.toString());
+        }
+        if (conf.tagCount != null) {
+            list.add("-l");
+            list.add(conf.tagCount.toString());
+        }
+        if (conf.msgTraceEnable != null) {
+            list.add("-m");
+            list.add(conf.msgTraceEnable.toString());
+        }
+        if (conf.aclEnable != null) {
+            list.add("-a");
+            list.add(conf.aclEnable.toString());
+        }
+        if (conf.messageNum != null) {
+            list.add("-q");
+            list.add(conf.messageNum.toString());
+        }
+        if (conf.delayEnable != null) {
+            list.add("-d");
+            list.add(conf.delayEnable.toString());
+        }
+        if (conf.delayLevel != null) {
+            list.add("-e");
+            list.add(conf.delayLevel.toString());
+        }
+        if (conf.asyncEnable != null) {
+            list.add("-y");
+            list.add(conf.asyncEnable.toString());
+        }
+        if (conf.threadNum != null) {
+            list.add("-w");
+            list.add(conf.threadNum.toString());
+        }
+        if (conf.nameServer != null) {
+            list.add("-n");
+            list.add(conf.nameServer.toString());
+        }
+        return list.toArray(new String[0]);
     }
 
     public static int getMaxLengthAsync() {
@@ -74,11 +164,10 @@ public class RMQProducerPerf {
         running.set(false);
     }
 
-    public static void setStatsBenchmark(StatsBenchmarkProducer statsBenchmark) {
-        RMQProducerPerf.statsBenchmark = statsBenchmark;
+    public static void start(String[] args, final StatsBenchmarkProducer statsBenchmark) throws MQClientException {
+        start(args, null, statsBenchmark);
     }
-
-    public static void main(String[] args) throws MQClientException {
+    public static void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark) throws MQClientException {
         System.setProperty(RemotingCommand.SERIALIZE_TYPE_PROPERTY, SerializeType.ROCKETMQ.name());
 
         Options options = ServerUtil.buildCommandlineOptions(new Options());
@@ -122,12 +211,6 @@ public class RMQProducerPerf {
         final InternalLogger log = ClientLogger.getLog();
 
         final ExecutorService sendThreadPool = Executors.newFixedThreadPool(threadNum);
-
-//        final StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
-
-        if (statsBenchmark == null) {
-            statsBenchmark = new StatsBenchmarkProducer();
-        }
 
         ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
                 new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
@@ -177,11 +260,8 @@ public class RMQProducerPerf {
             String sk = commandLine.hasOption("sk") ? String.valueOf(commandLine.getOptionValue("sk")) : AclClient.ACL_SECRET_KEY;
             rpcHook = AclClient.getAclRPCHook(ak, sk);
         }
+        final DefaultMQProducer producer = defaultMQProducer != null ? defaultMQProducer : new DefaultMQProducer("benchmark_producer", rpcHook, msgTraceEnable, null);
 
-//        final DefaultMQProducer producer = new DefaultMQProducer("benchmark_producer", rpcHook, msgTraceEnable, null);
-        if (producer == null) {
-            producer = new DefaultMQProducer("benchmark_producer", rpcHook, msgTraceEnable, null);
-        }
         producer.setInstanceName(Long.toString(System.currentTimeMillis()));
 
         if (commandLine.hasOption('n')) {
