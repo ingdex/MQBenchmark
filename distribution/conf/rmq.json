@@ -1,7 +1,7 @@
 [
   {
     "topic": "topic",
-    "topicCount": 1,
+    "topicCount": 32,
     "messageSize": 4096,
     "keyEnable": false,
     "propertySize": 0,
@@ -12,7 +12,23 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 1,
+    "threadNum": 32,
     "nameServer": "192.168.0.181:9876"
+  },
+  {
+    "topic": "topic",
+    "topicCount": 32,
+    "messageSize": 4096,
+    "keyEnable": false,
+    "propertySize": 0,
+    "tagCount": 0,
+    "msgTraceEnable": false,
+    "aclEnable": false,
+    "messageNum": 0,
+    "delayEnable": false,
+    "delayLevel": 0,
+    "asyncEnable": true,
+    "threadNum": 32,
+    "nameServer": "192.168.0.181:9877"
   }
 ]

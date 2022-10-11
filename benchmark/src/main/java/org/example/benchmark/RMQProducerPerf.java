@@ -68,7 +68,7 @@ public class RMQProducerPerf {
     private static final int SLEEP_FOR_A_WHILE = 100;
     private static AtomicBoolean running = new AtomicBoolean(true);
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         if (args.length != 2 || !args[0].equals("-c")) {
             System.out.println("Usage: RMQProducerPerf -c CONFIG.json");
             return;
@@ -83,6 +83,36 @@ public class RMQProducerPerf {
         }
         StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
         ExecutorService sendThreadPool = Executors.newFixedThreadPool(rmqConfs.length);
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
+                new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
+        final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
+        executorService.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                snapshotList.addLast(statsBenchmark.createSnapshot());
+                if (snapshotList.size() > 10) {
+                    snapshotList.removeFirst();
+                }
+            }
+        }, 1000, 1000, TimeUnit.MILLISECONDS);
+
+        executorService.scheduleAtFixedRate(new TimerTask() {
+            private void printStats() {
+                if (snapshotList.size() >= 10) {
+                    doPrintStats(snapshotList,  statsBenchmark, false);
+                }
+            }
+
+            @Override
+            public void run() {
+                try {
+                    this.printStats();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 10000, 10000, TimeUnit.MILLISECONDS);
+
         for (int i=0; i<rmqConfs.length; i++) {
             RMQConf conf = rmqConfs[i];
             String[] subArgs = toArgs(conf);
@@ -99,6 +129,21 @@ public class RMQProducerPerf {
                     throw new RuntimeException(e);
                 }
             });
+        }
+        sendThreadPool.shutdown();
+        sendThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+        executorService.shutdown();
+        try {
+            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+        }
+
+        if (snapshotList.size() > 1) {
+            doPrintStats(snapshotList, statsBenchmark, true);
+        } else {
+            System.out.printf("[Complete] Send Total: %d Send Failed: %d Response Failed: %d%n",
+                    statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
+                    statsBenchmark.getSendRequestFailedCount().longValue(), statsBenchmark.getReceiveResponseFailedCount().longValue());
         }
     }
 
@@ -219,10 +264,10 @@ public class RMQProducerPerf {
 
         final ExecutorService sendThreadPool = Executors.newFixedThreadPool(threadNum);
 
-        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
-                new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
-
-        final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
+//        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
+//                new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
+//
+//        final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
 
         final long[] msgNums = new long[threadNum];
 
@@ -234,32 +279,32 @@ public class RMQProducerPerf {
             }
         }
 
-        executorService.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                snapshotList.addLast(statsBenchmark.createSnapshot());
-                if (snapshotList.size() > 10) {
-                    snapshotList.removeFirst();
-                }
-            }
-        }, 1000, 1000, TimeUnit.MILLISECONDS);
-
-        executorService.scheduleAtFixedRate(new TimerTask() {
-            private void printStats() {
-                if (snapshotList.size() >= 10) {
-                    doPrintStats(snapshotList,  statsBenchmark, false);
-                }
-            }
-
-            @Override
-            public void run() {
-                try {
-                    this.printStats();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 10000, 10000, TimeUnit.MILLISECONDS);
+//        executorService.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                snapshotList.addLast(statsBenchmark.createSnapshot());
+//                if (snapshotList.size() > 10) {
+//                    snapshotList.removeFirst();
+//                }
+//            }
+//        }, 1000, 1000, TimeUnit.MILLISECONDS);
+//
+//        executorService.scheduleAtFixedRate(new TimerTask() {
+//            private void printStats() {
+//                if (snapshotList.size() >= 10) {
+//                    doPrintStats(snapshotList,  statsBenchmark, false);
+//                }
+//            }
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    this.printStats();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, 10000, 10000, TimeUnit.MILLISECONDS);
 
         RPCHook rpcHook = null;
         if (aclEnable) {
@@ -381,19 +426,19 @@ public class RMQProducerPerf {
         try {
             sendThreadPool.shutdown();
             sendThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-            executorService.shutdown();
-            try {
-                executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
-            }
-
-            if (snapshotList.size() > 1) {
-                doPrintStats(snapshotList, statsBenchmark, true);
-            } else {
-                System.out.printf("[Complete] Send Total: %d Send Failed: %d Response Failed: %d%n",
-                        statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
-                        statsBenchmark.getSendRequestFailedCount().longValue(), statsBenchmark.getReceiveResponseFailedCount().longValue());
-            }
+//            executorService.shutdown();
+//            try {
+//                executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+//            } catch (InterruptedException e) {
+//            }
+//
+//            if (snapshotList.size() > 1) {
+//                doPrintStats(snapshotList, statsBenchmark, true);
+//            } else {
+//                System.out.printf("[Complete] Send Total: %d Send Failed: %d Response Failed: %d%n",
+//                        statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
+//                        statsBenchmark.getSendRequestFailedCount().longValue(), statsBenchmark.getReceiveResponseFailedCount().longValue());
+//            }
             producer.shutdown();
         } catch (InterruptedException e) {
             log.error("[Exit] Thread Interrupted Exception", e);
