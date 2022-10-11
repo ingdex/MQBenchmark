@@ -11,7 +11,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": true,
+    "asyncEnable": false,
     "threadNum": 32,
     "nameServer": "192.168.0.181:9876"
   },
@@ -26,8 +26,8 @@
     "aclEnable": false,
     "messageNum": 0,
     "delayEnable": false,
-    "delayLevel": 0,
-    "asyncEnable": true,
+    "delayLevel": 1,
+    "asyncEnable": false,
     "threadNum": 32,
     "nameServer": "192.168.0.181:9877"
   }
