@@ -1,5 +1,7 @@
 package org.example.benchmark;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
@@ -10,9 +12,12 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.utils.Exit;
 import org.apache.kafka.common.utils.Utils;
+import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.srvutil.ServerUtil;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -45,22 +50,154 @@ import net.sourceforge.argparse4j.inf.Namespace;
 
 public class KafkaProducerPerf {
     private static org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer;
-    private static StatsBenchmarkProducer statsBenchmark = null;
+//    private static StatsBenchmarkProducer statsBenchmark = null;
     private static AtomicBoolean running = new AtomicBoolean(true);
+
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+        if (args.length != 2 || !args[0].equals("-c")) {
+            System.out.println("Usage: kafkaproducer -c CONFIG.json");
+            return;
+        }
+        String path = args[1];
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new FileReader(path));
+        KafkaConf[] kafkaConfs = gson.fromJson(reader, KafkaConf[].class);
+        System.out.println("Found " + kafkaConfs.length + " kafkaConf:");
+        for (KafkaConf conf: kafkaConfs) {
+            System.out.println(gson.toJson(conf));
+        }
+        StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
+        ExecutorService sendThreadPool = Executors.newFixedThreadPool(kafkaConfs.length);
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
+                new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
+        final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
+        executorService.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                snapshotList.addLast(statsBenchmark.createSnapshot());
+                if (snapshotList.size() > 10) {
+                    snapshotList.removeFirst();
+                }
+            }
+        }, 1000, 1000, TimeUnit.MILLISECONDS);
+
+        executorService.scheduleAtFixedRate(new TimerTask() {
+            private void printStats() {
+                if (snapshotList.size() >= 10) {
+                    doPrintStats(snapshotList,  statsBenchmark, false);
+                }
+            }
+
+            @Override
+            public void run() {
+                try {
+                    this.printStats();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 10000, 10000, TimeUnit.MILLISECONDS);
+
+        for (int i=0; i<kafkaConfs.length; i++) {
+            KafkaConf conf = kafkaConfs[i];
+            String[] subArgs = toArgs(conf);
+            StringBuilder sb = new StringBuilder();
+            for (String arg: subArgs) {
+                sb.append(arg + " ");
+            }
+            System.out.println("subArgs: " + sb.toString());
+            String producerGroup = "producer_benchmark_" + i;
+            sendThreadPool.execute(() -> {
+                try {
+                    KafkaProducerPerf.start(subArgs, statsBenchmark);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+        sendThreadPool.shutdown();
+        sendThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+        executorService.shutdown();
+        try {
+            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+        }
+
+        if (snapshotList.size() > 1) {
+            doPrintStats(snapshotList, statsBenchmark, true);
+        } else {
+            System.out.printf("[Complete] Send Total: %d Send Failed: %d Response Failed: %d%n",
+                    statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
+                    statsBenchmark.getSendRequestFailedCount().longValue(), statsBenchmark.getReceiveResponseFailedCount().longValue());
+        }
+    }
+
+    private static String[] toArgs(KafkaConf conf) {
+        List<String> list = new ArrayList<>();
+        if (conf.topic != null) {
+            list.add("--topic");
+            list.add(conf.topic);
+        }
+        if (conf.topicNum != null) {
+            list.add("-n");
+            list.add(conf.topicNum.toString());
+        }
+        if (conf.messageNum != null) {
+            list.add("-s");
+            list.add(conf.messageNum.toString());
+        }
+        if (conf.messageSize != null) {
+            list.add("-s");
+            list.add(conf.messageSize.toString());
+        }
+        if (conf.producerProps != null) {
+            list.add("--producer-props");
+            list.add(conf.producerProps.toString());
+        }
+        if (conf.producerConfig != null) {
+            list.add("--producer.config");
+            list.add(conf.producerConfig.toString());
+        }
+//        if (conf.payloadFilePath != null) {
+//            list.add("-l");
+//            list.add(conf.payloadFilePath.toString());
+//        }
+//        if (conf.transactionalId != null) {
+//            list.add("-m");
+//            list.add(conf.transactionalId.toString());
+//        }
+//        if (conf.shouldPrIntegerMetrics != null) {
+//            list.add("-a");
+//            list.add(conf.shouldPrIntegerMetrics.toString());
+//        }
+//        if (conf.transactionDurationMs != null) {
+//            list.add("-q");
+//            list.add(conf.transactionDurationMs.toString());
+//        }
+        if (conf.threadNum != null) {
+            list.add("-w");
+            list.add(conf.threadNum.toString());
+        }
+        if (conf.asyncEnable != null) {
+            list.add("--asyncEnable");
+            list.add(conf.asyncEnable.toString());
+        }
+        return list.toArray(new String[0]);
+    }
 
     public static void setProducer(org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer) {
         KafkaProducerPerf.producer = producer;
     }
 
-    public static void setStatsBenchmark(StatsBenchmarkProducer statsBenchmark) {
-        KafkaProducerPerf.statsBenchmark = statsBenchmark;
-    }
+//    public static void setStatsBenchmark(StatsBenchmarkProducer statsBenchmark) {
+//        KafkaProducerPerf.statsBenchmark = statsBenchmark;
+//    }
 
     public static void stop() {
         running.set(false);
     }
 
-    public static void start(String[] args) throws Exception {
+    public static void start(String[] args, StatsBenchmarkProducer statsBenchmark) throws Exception {
         ArgumentParser parser = argParser();
         try {
             Namespace res = parser.parseArgs(args);
@@ -113,18 +250,18 @@ public class KafkaProducerPerf {
 
             /* setup perf test */
             Random random = new Random(0);
-            ProducerRecord<byte[], byte[]> record;
+//            ProducerRecord<byte[], byte[]> record;
 //            Stats stats = new Stats(messageNum, 5000);
-            long startMs = System.currentTimeMillis();
+//            long startMs = System.currentTimeMillis();
 
             final ExecutorService sendThreadPool = Executors.newFixedThreadPool(threadNum);
             
-            if (statsBenchmark == null) {
-                statsBenchmark = new StatsBenchmarkProducer();
-            }
+//            if (statsBenchmark == null) {
+//                statsBenchmark = new StatsBenchmarkProducer();
+//            }
 
-            ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
-                    new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
+//            ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
+//                    new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
 
             final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
 
@@ -138,32 +275,32 @@ public class KafkaProducerPerf {
                 }
             }
 
-            executorService.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    snapshotList.addLast(statsBenchmark.createSnapshot());
-                    if (snapshotList.size() > 10) {
-                        snapshotList.removeFirst();
-                    }
-                }
-            }, 1000, 1000, TimeUnit.MILLISECONDS);
-
-            executorService.scheduleAtFixedRate(new TimerTask() {
-                private void printStats() {
-                    if (snapshotList.size() >= 10) {
-                        doPrintStats(snapshotList, statsBenchmark, false);
-                    }
-                }
-
-                @Override
-                public void run() {
-                    try {
-                        this.printStats();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, 10000, 10000, TimeUnit.MILLISECONDS);
+//            executorService.scheduleAtFixedRate(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    snapshotList.addLast(statsBenchmark.createSnapshot());
+//                    if (snapshotList.size() > 10) {
+//                        snapshotList.removeFirst();
+//                    }
+//                }
+//            }, 1000, 1000, TimeUnit.MILLISECONDS);
+//
+//            executorService.scheduleAtFixedRate(new TimerTask() {
+//                private void printStats() {
+//                    if (snapshotList.size() >= 10) {
+//                        doPrintStats(snapshotList, statsBenchmark, false);
+//                    }
+//                }
+//
+//                @Override
+//                public void run() {
+//                    try {
+//                        this.printStats();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }, 10000, 10000, TimeUnit.MILLISECONDS);
 
             int currentTransactionSize = 0;
             long transactionStartTime = 0;
@@ -177,6 +314,9 @@ public class KafkaProducerPerf {
                     break;
                 }
                 int threadPerTopic = threadNum / topicNum;
+                if (threadPerTopic == 0) {
+                    threadPerTopic = 1;
+                }
                 final String topicThisThread = topicList.get(i / threadPerTopic);
                 sendThreadPool.execute(new Runnable() {
                     @Override
@@ -211,8 +351,8 @@ public class KafkaProducerPerf {
             try {
                 sendThreadPool.shutdown();
                 sendThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-                executorService.shutdown();
-                executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+//                executorService.shutdown();
+//                executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
                 if (snapshotList.size() > 1) {
                     doPrintStats(snapshotList, statsBenchmark, true);
                 } else {

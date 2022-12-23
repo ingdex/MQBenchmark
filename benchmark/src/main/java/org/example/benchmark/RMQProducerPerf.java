@@ -64,7 +64,7 @@ public class RMQProducerPerf {
 //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private static byte[] msgBody;
-    private static final int MAX_LENGTH_ASYNC_QUEUE = 10000;
+    private static final int MAX_LENGTH_ASYNC_QUEUE = 1000;
     private static final int SLEEP_FOR_A_WHILE = 100;
     private static AtomicBoolean running = new AtomicBoolean(true);
 

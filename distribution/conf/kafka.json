@@ -1,0 +1,12 @@
+[
+  {
+    "topic": "topic",
+    "topicNum": 1,
+    "messageNum": 0,
+    "messageSize": 4096,
+    "producerProps": ["props=props"],
+    "producerConfig": "/Users/ingdex/workspace/MQBenchmark/distribution/conf/kafkaproducer.properties",
+    "threadNum": 1,
+    "asyncEnable": true
+  }
+]
