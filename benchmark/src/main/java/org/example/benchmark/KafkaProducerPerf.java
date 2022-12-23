@@ -139,11 +139,11 @@ public class KafkaProducerPerf {
             list.add(conf.topic);
         }
         if (conf.topicNum != null) {
-            list.add("-n");
+            list.add("--topic-nums");
             list.add(conf.topicNum.toString());
         }
         if (conf.messageNum != null) {
-            list.add("-s");
+            list.add("-n");
             list.add(conf.messageNum.toString());
         }
         if (conf.messageSize != null) {
