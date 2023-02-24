@@ -245,7 +245,7 @@ public class RMQProducerPerf {
         for (int i=0; i<topicCount; i++) {
             int numberOfDigits = SLMathUtil.getNumberOfDigits(topicCount);
 //            String format = String.format("%%s%%0%dd", numberOfDigits);
-            String format = "%%s%%d";
+            String format = "%s%d";
             topicList.add(String.format(format, topic, i));
         }
 
