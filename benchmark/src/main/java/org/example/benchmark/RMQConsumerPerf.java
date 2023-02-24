@@ -122,23 +122,14 @@ public class RMQConsumerPerf {
             });
         }
         receiveThreadPool.shutdown();
+//        System.out.println("shutdown");
         receiveThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-        executorService.shutdown();
-        try {
-            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-        }
-
-//        if (snapshotList.size() > 1) {
-//            doPrintStats(snapshotList, statsBenchmark, true);
-//        } else {
-//            System.out.printf("[Complete] Send Total: %d Send Failed: %d Response Failed: %d%n",
-//                    statsBenchmark.getSendRequestSuccessCount().longValue() + statsBenchmark.getSendRequestFailedCount().longValue(),
-//                    statsBenchmark.getSendRequestFailedCount().longValue(), statsBenchmark.getReceiveResponseFailedCount().longValue());
+//        System.out.println("awaitTermination");
+//        executorService.shutdown();
+//        try {
+//            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+//        } catch (InterruptedException e) {
 //        }
-
-
-
     }
 
     private static void start(String[] subArgs, StatsBenchmarkConsumer statsBenchmarkConsumer) throws MQClientException, IOException {
@@ -202,6 +193,7 @@ public class RMQConsumerPerf {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                             ConsumeConcurrentlyContext context) {
+//                System.out.println("receive msg");
                 MessageExt msg = msgs.get(0);
                 long now = System.currentTimeMillis();
 
