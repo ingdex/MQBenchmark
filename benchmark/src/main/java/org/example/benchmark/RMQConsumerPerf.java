@@ -244,14 +244,14 @@ public class RMQConsumerPerf {
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("gp", "groupPrefix", true, "Consumer group name, Default: benchmark_consumer");
+        opt = new Option("g", "groupPrefix", true, "Consumer group name, Default: benchmark_consumer");
         opt.setRequired(false);
         options.addOption(opt);
-        opt = new Option("se", "group prefix enable", true, "Is group prefix enable, Default: false");
+        opt = new Option("p", "group prefix enable", true, "Is group prefix enable, Default: false");
         opt.setRequired(false);
         options.addOption(opt);
 
-        opt = new Option("ft", "filterType", true, "TAG, SQL92");
+        opt = new Option("f", "filterType", true, "TAG, SQL92");
         opt.setRequired(false);
         options.addOption(opt);
 
