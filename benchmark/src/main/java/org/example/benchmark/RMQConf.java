@@ -15,4 +15,10 @@ public class RMQConf {
     Boolean asyncEnable;
     Integer threadNum;
     String nameServer;
+    String groupPrefix;
+    String isSuffixEnable;
+    String filterType;
+    String expression;
+    Double failRate;
+
 }

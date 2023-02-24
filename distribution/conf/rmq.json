@@ -1,8 +1,8 @@
 [
   {
     "topic": "topic",
-    "topicCount": 1,
-    "messageSize": 4096,
+    "topicCount": 8,
+    "messageSize": 1048576,
     "keyEnable": false,
     "propertySize": 0,
     "tagCount": 0,
@@ -12,7 +12,7 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": false,
-    "threadNum": 1,
+    "threadNum": 8,
     "nameServer": "192.168.0.181:9876"
   }
 ]
