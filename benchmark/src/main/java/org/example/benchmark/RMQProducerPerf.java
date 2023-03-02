@@ -122,9 +122,10 @@ public class RMQProducerPerf {
             }
             System.out.println("subArgs: " + sb.toString());
             String producerGroup = "producer_benchmark_" + i;
+            int finalI = i;
             sendThreadPool.execute(() -> {
                 try {
-                    RMQProducerPerf.start(subArgs, statsBenchmark, producerGroup);
+                    RMQProducerPerf.start(subArgs, statsBenchmark, producerGroup, finalI);
                 } catch (MQClientException e) {
                     throw new RuntimeException(e);
                 }
@@ -216,10 +217,10 @@ public class RMQProducerPerf {
         running.set(false);
     }
 
-    public static void start(String[] args, final StatsBenchmarkProducer statsBenchmark, String producerGroup) throws MQClientException {
-        start(args, null, statsBenchmark, producerGroup);
+    public static void start(String[] args, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
+        start(args, null, statsBenchmark, producerGroup, id);
     }
-    public static void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark, String producerGroup) throws MQClientException {
+    public static void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
         System.setProperty(RemotingCommand.SERIALIZE_TYPE_PROPERTY, SerializeType.ROCKETMQ.name());
 
         Options options = ServerUtil.buildCommandlineOptions(new Options());
@@ -265,11 +266,6 @@ public class RMQProducerPerf {
 
         final ExecutorService sendThreadPool = Executors.newFixedThreadPool(threadNum);
 
-//        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
-//                new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
-//
-//        final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
-
         final long[] msgNums = new long[threadNum];
 
         if (messageNum > 0) {
@@ -280,33 +276,6 @@ public class RMQProducerPerf {
             }
         }
 
-//        executorService.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
-//                snapshotList.addLast(statsBenchmark.createSnapshot());
-//                if (snapshotList.size() > 10) {
-//                    snapshotList.removeFirst();
-//                }
-//            }
-//        }, 1000, 1000, TimeUnit.MILLISECONDS);
-//
-//        executorService.scheduleAtFixedRate(new TimerTask() {
-//            private void printStats() {
-//                if (snapshotList.size() >= 10) {
-//                    doPrintStats(snapshotList,  statsBenchmark, false);
-//                }
-//            }
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    this.printStats();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, 10000, 10000, TimeUnit.MILLISECONDS);
-
         RPCHook rpcHook = null;
         if (aclEnable) {
             String ak = commandLine.hasOption("ak") ? String.valueOf(commandLine.getOptionValue("ak")) : AclClient.ACL_ACCESS_KEY;
@@ -315,7 +284,7 @@ public class RMQProducerPerf {
         }
         final DefaultMQProducer producer = defaultMQProducer != null ? defaultMQProducer : new DefaultMQProducer(producerGroup, rpcHook, msgTraceEnable, null);
 
-        producer.setInstanceName(Long.toString(System.currentTimeMillis()));
+        producer.setInstanceName(Long.toString(System.currentTimeMillis() + id));
 
         if (commandLine.hasOption('n')) {
             String ns = commandLine.getOptionValue('n');
