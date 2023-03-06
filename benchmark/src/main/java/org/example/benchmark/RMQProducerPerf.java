@@ -358,6 +358,7 @@ public class RMQProducerPerf {
 
                                     @Override
                                     public void onException(Throwable e) {
+                                        log.info(e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
                                     }
                                 });
