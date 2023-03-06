@@ -243,11 +243,15 @@ public class RMQProducerPerf {
         final boolean asyncEnable = commandLine.hasOption('y') && Boolean.parseBoolean(commandLine.getOptionValue('y'));
         final int threadNum = commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 4;
         final List<String> topicList = new ArrayList<>();
-        for (int i=0; i<topicCount; i++) {
-            int numberOfDigits = SLMathUtil.getNumberOfDigits(topicCount);
+        if (topicCount > 1) {
+            for (int i=0; i<topicCount; i++) {
+                int numberOfDigits = SLMathUtil.getNumberOfDigits(topicCount);
 //            String format = String.format("%%s%%0%dd", numberOfDigits);
-            String format = "%s%d";
-            topicList.add(String.format(format, topic, i));
+                String format = "%s%d";
+                topicList.add(String.format(format, topic, i));
+            }
+        } else {
+            topicList.add(topic);
         }
 
         System.out.printf("topic: %s topicCount: %5d threadNum: %d messageSize: %d keyEnable: %b propertySize: %d tagCount: %d " +
