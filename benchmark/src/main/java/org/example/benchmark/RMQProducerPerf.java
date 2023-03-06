@@ -73,6 +73,7 @@ public class RMQProducerPerf {
             System.out.println("Usage: RMQProducerPerf -c CONFIG.json");
             return;
         }
+        System.setProperty("rocketmq.client.logRoot","/root/clientLog");
         String path = args[1];
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(path));
