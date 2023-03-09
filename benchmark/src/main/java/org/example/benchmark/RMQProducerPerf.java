@@ -362,7 +362,7 @@ public class RMQProducerPerf {
 
                                     @Override
                                     public void onException(Throwable e) {
-                                        log.info(e.toString());
+                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
                                         if (e instanceof RemotingTimeoutException || e instanceof RemotingTooMuchRequestException) {
                                             MAX_LENGTH_ASYNC_QUEUE.set(MAX_LENGTH_ASYNC_QUEUE.get() / 2);
