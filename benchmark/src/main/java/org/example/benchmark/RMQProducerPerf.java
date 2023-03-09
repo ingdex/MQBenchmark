@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.LongAdder;
 
 import com.google.gson.Gson;
@@ -45,6 +46,8 @@ import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.logging.InternalLogger;
 import org.apache.rocketmq.remoting.RPCHook;
 import org.apache.rocketmq.remoting.exception.RemotingException;
+import org.apache.rocketmq.remoting.exception.RemotingTimeoutException;
+import org.apache.rocketmq.remoting.exception.RemotingTooMuchRequestException;
 import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 import org.apache.rocketmq.remoting.protocol.SerializeType;
 import org.apache.rocketmq.srvutil.ServerUtil;
@@ -64,7 +67,7 @@ public class RMQProducerPerf {
 //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private static byte[] msgBody;
-    private static final int MAX_LENGTH_ASYNC_QUEUE = 1000;
+    private static AtomicInteger MAX_LENGTH_ASYNC_QUEUE = new AtomicInteger(1000);
     private static final int SLEEP_FOR_A_WHILE = 100;
     private static AtomicBoolean running = new AtomicBoolean(true);
 
@@ -211,7 +214,7 @@ public class RMQProducerPerf {
     }
 
     public static int getMaxLengthAsync() {
-        return MAX_LENGTH_ASYNC_QUEUE;
+        return MAX_LENGTH_ASYNC_QUEUE.get();
     }
 
     public static void stop() {
@@ -347,7 +350,7 @@ public class RMQProducerPerf {
                             if (asyncEnable) {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
-                                while (e.getQueue().size() > MAX_LENGTH_ASYNC_QUEUE) {
+                                while (e.getQueue().size() > MAX_LENGTH_ASYNC_QUEUE.get()) {
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
                                 }
                                 producer.send(msg, new SendCallback() {
@@ -360,6 +363,9 @@ public class RMQProducerPerf {
                                     public void onException(Throwable e) {
                                         log.info(e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
+                                        if (e instanceof RemotingTimeoutException || e instanceof RemotingTooMuchRequestException) {
+                                            MAX_LENGTH_ASYNC_QUEUE.set(MAX_LENGTH_ASYNC_QUEUE.get() / 2);
+                                        }
                                     }
                                 });
                             } else {
