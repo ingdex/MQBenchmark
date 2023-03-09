@@ -1,0 +1,8 @@
+[
+  {
+    "topic": "topic0",
+    "threadNum": 2,
+    "groupPrefix": "topic0",
+    "nameServer": "192.168.0.181:9876"
+  }
+]

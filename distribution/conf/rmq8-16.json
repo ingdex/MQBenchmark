@@ -1,7 +1,7 @@
 [
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -12,12 +12,12 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   },
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -28,12 +28,12 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   },
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -44,12 +44,12 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   },
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -60,12 +60,12 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   },
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -76,12 +76,12 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   },
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -92,12 +92,12 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   },
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -108,12 +108,12 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   },
   {
     "topic": "topic",
-    "topicCount": 8,
+    "topicCount": 16,
     "messageSize": 1024,
     "keyEnable": false,
     "propertySize": 0,
@@ -124,7 +124,7 @@
     "delayEnable": false,
     "delayLevel": 1,
     "asyncEnable": true,
-    "threadNum": 8,
+    "threadNum": 16,
     "nameServer": "192.168.0.181:9876"
   }
 ]

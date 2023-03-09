@@ -1,0 +1,34 @@
+[
+  {
+    "topic": "topic",
+    "topicCount": 64,
+    "messageSize": 128,
+    "keyEnable": false,
+    "propertySize": 0,
+    "tagCount": 0,
+    "msgTraceEnable": false,
+    "aclEnable": false,
+    "messageNum": 0,
+    "delayEnable": false,
+    "delayLevel": 1,
+    "asyncEnable": false,
+    "threadNum": 64,
+    "nameServer": "192.168.0.181:9876"
+  }, 
+  {
+    "topic": "topic",
+    "topicCount": 64,
+    "messageSize": 128,
+    "keyEnable": false,
+    "propertySize": 0,
+    "tagCount": 0,
+    "msgTraceEnable": false,
+    "aclEnable": false,
+    "messageNum": 0,
+    "delayEnable": false,
+    "delayLevel": 1,
+    "asyncEnable": false,
+    "threadNum": 64,
+    "nameServer": "192.168.0.181:9877"
+  }
+]
