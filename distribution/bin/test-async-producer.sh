@@ -11,6 +11,7 @@ export rocketMQProcessName="BrokerStartup"
 restartRocketMQ() {
   PID=$(jps | grep $rocketMQProcessName | grep -v grep | awk '{print $1}')
   kill -9 $PID
+  sleep 10s
   rm -r $rocketMQLogDir/rocketmq
   sleep 10s
   cd "$1/bin"
