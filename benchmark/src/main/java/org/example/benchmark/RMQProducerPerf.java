@@ -357,6 +357,7 @@ public class RMQProducerPerf {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
+                                        MAX_LENGTH_ASYNC_QUEUE.incrementAndGet();
                                     }
 
                                     @Override

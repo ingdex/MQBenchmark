@@ -11,7 +11,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -27,7 +27,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -43,7 +43,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -59,7 +59,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -75,7 +75,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -91,7 +91,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -107,7 +107,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -123,7 +123,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -139,7 +139,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -155,7 +155,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -171,7 +171,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -187,7 +187,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -203,7 +203,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -219,7 +219,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -235,7 +235,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   },
@@ -251,7 +251,7 @@
     "messageNum": 0,
     "delayEnable": false,
     "delayLevel": 1,
-    "asyncEnable": false,
+    "asyncEnable": true,
     "threadNum": 1,
     "nameServer": "192.168.0.181:9876"
   }
