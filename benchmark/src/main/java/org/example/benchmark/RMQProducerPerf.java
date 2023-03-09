@@ -357,14 +357,14 @@ public class RMQProducerPerf {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
-                                        MAX_LENGTH_ASYNC_QUEUE.incrementAndGet();
+//                                        MAX_LENGTH_ASYNC_QUEUE.incrementAndGet();
                                     }
 
                                     @Override
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
-                                        MAX_LENGTH_ASYNC_QUEUE.set(MAX_LENGTH_ASYNC_QUEUE.get() / 2);
+//                                        MAX_LENGTH_ASYNC_QUEUE.set(MAX_LENGTH_ASYNC_QUEUE.get() / 2);
 //                                        if (e instanceof RemotingTimeoutException || e instanceof RemotingTooMuchRequestException) {
 //                                            MAX_LENGTH_ASYNC_QUEUE.set(MAX_LENGTH_ASYNC_QUEUE.get() / 2);
 //                                        }
