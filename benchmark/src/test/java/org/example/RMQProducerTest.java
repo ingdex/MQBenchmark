@@ -74,17 +74,17 @@ public class RMQProducerTest {
         doNothing().when(producer).shutdown();
         System.out.println("start");
         StatsBenchmarkProducer statsBenchmarkProducer = new StatsBenchmarkProducer();
+        RMQProducerPerf rmqProducerPerf = new RMQProducerPerf();
         new Thread(() -> {
             try {
                 Thread.sleep(10000);
-                RMQProducerPerf.stop();
+                rmqProducerPerf.stop();
                 System.out.println("stopped");
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
         }).start();
-        RMQProducerPerf.start(new String[]{"RMQProducerPerf", "-t", "topic"}, producer, statsBenchmarkProducer, "producer_benchmark", 0);
-
+        rmqProducerPerf.start(new String[]{"RMQProducerPerf", "-t", "topic"}, producer, statsBenchmarkProducer, "producer_benchmark", 0);
         assertEquals(statsBenchmarkProducer.getSendRequestSuccessCount().longValue(), totalMsg.longValue());
         System.out.println("statsBenchmarkProducer.getSendRequestSuccessCount().longValue(): " + statsBenchmarkProducer.getSendRequestSuccessCount().longValue());
         System.out.println("totalMsg.longValue(): " + totalMsg.longValue());

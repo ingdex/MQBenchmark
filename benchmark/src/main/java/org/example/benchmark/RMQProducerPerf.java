@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -66,10 +67,12 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 public class RMQProducerPerf {
 //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
-    private static byte[] msgBody;
-    private static AtomicInteger MAX_LENGTH_ASYNC_QUEUE = new AtomicInteger(1000);
-    private static final int SLEEP_FOR_A_WHILE = 100;
-    private static AtomicBoolean running = new AtomicBoolean(true);
+    private byte[] msgBody;
+    private AtomicInteger MAX_LOAD_FACTOR = new AtomicInteger(4096);
+    private AtomicInteger currentLoadFactor = new AtomicInteger(0);
+    private ConcurrentHashMap<String, Integer/* msgId, loadFacotr*/> loadFactorMap = new ConcurrentHashMap<>();
+    private final int SLEEP_FOR_A_WHILE = 100;
+    private AtomicBoolean running = new AtomicBoolean(true);
 
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         if (args.length != 2 || !args[0].equals("-c")) {
@@ -129,7 +132,8 @@ public class RMQProducerPerf {
             int finalI = i;
             sendThreadPool.execute(() -> {
                 try {
-                    RMQProducerPerf.start(subArgs, statsBenchmark, producerGroup, finalI);
+                    RMQProducerPerf rmqProducerPerf = new RMQProducerPerf();
+                    rmqProducerPerf.start(subArgs, statsBenchmark, producerGroup, finalI);
                 } catch (MQClientException e) {
                     throw new RuntimeException(e);
                 }
@@ -213,18 +217,22 @@ public class RMQProducerPerf {
         return list.toArray(new String[0]);
     }
 
-    public static int getMaxLengthAsync() {
-        return MAX_LENGTH_ASYNC_QUEUE.get();
+    public int getMaxLoadFacotr() {
+        return MAX_LOAD_FACTOR.get();
     }
 
-    public static void stop() {
+    public static int getLoadFactor(int msgSize) {
+        return Math.max(msgSize << 10, 1);
+    }
+
+    public void stop() {
         running.set(false);
     }
 
-    public static void start(String[] args, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
+    public void start(String[] args, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
         start(args, null, statsBenchmark, producerGroup, id);
     }
-    public static void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
+    public void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
         System.setProperty(RemotingCommand.SERIALIZE_TYPE_PROPERTY, SerializeType.ROCKETMQ.name());
 
         Options options = ServerUtil.buildCommandlineOptions(new Options());
@@ -350,26 +358,24 @@ public class RMQProducerPerf {
                             if (asyncEnable) {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
-                                while (e.getQueue().size() > MAX_LENGTH_ASYNC_QUEUE.get()) {
+                                while (currentLoadFactor.get() > MAX_LOAD_FACTOR.get()) {
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
                                 }
                                 producer.send(msg, new SendCallback() {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
-//                                        MAX_LENGTH_ASYNC_QUEUE.incrementAndGet();
+                                        MAX_LOAD_FACTOR.incrementAndGet();
                                     }
 
                                     @Override
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
-//                                        MAX_LENGTH_ASYNC_QUEUE.set(MAX_LENGTH_ASYNC_QUEUE.get() / 2);
-//                                        if (e instanceof RemotingTimeoutException || e instanceof RemotingTooMuchRequestException) {
-//                                            MAX_LENGTH_ASYNC_QUEUE.set(MAX_LENGTH_ASYNC_QUEUE.get() / 2);
-//                                        }
+                                        MAX_LOAD_FACTOR.set(Math.max(1, MAX_LOAD_FACTOR.get() / 2));
                                     }
                                 });
+                                currentLoadFactor.addAndGet(getLoadFactor(messageSize));
                             } else {
                                 producer.send(msg);
                                 updateStatsSuccess(statsBenchmark, beginTimestamp);
@@ -507,7 +513,7 @@ public class RMQProducerPerf {
         return options;
     }
 
-    private static Message buildMessage(final String topic) {
+    private Message buildMessage(final String topic) {
         return new Message(topic, msgBody);
     }
 
