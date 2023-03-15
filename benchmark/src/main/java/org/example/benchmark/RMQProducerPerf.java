@@ -365,6 +365,7 @@ public class RMQProducerPerf {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
+                                        currentLoadFactor.addAndGet(-getLoadFactor(messageSize));
                                         MAX_LOAD_FACTOR.incrementAndGet();
                                     }
 
@@ -372,7 +373,7 @@ public class RMQProducerPerf {
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
-                                        MAX_LOAD_FACTOR.set(Math.max(1, MAX_LOAD_FACTOR.get() / 2));
+                                        MAX_LOAD_FACTOR.set(Math.max(1024, MAX_LOAD_FACTOR.get() / 2));
                                     }
                                 });
                                 currentLoadFactor.addAndGet(getLoadFactor(messageSize));
