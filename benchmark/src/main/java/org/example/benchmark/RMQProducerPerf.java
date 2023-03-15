@@ -360,6 +360,7 @@ public class RMQProducerPerf {
                                 // Flow control
                                 while (currentLoadFactor.get() > MAX_LOAD_FACTOR.get()) {
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
+                                    System.out.println("sleep for a while");
                                 }
                                 producer.send(msg, new SendCallback() {
                                     @Override
