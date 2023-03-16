@@ -68,8 +68,8 @@ public class RMQProducerPerf {
 //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private byte[] msgBody;
-    private final int MAX_LOAD_FACTOR = 4096;
-    private AtomicInteger loadThreshold = new AtomicInteger(4096);
+    private final int MAX_LOAD_FACTOR = 8192;
+    private AtomicInteger loadThreshold = new AtomicInteger(8192);
     private AtomicInteger currentLoadFactor = new AtomicInteger(0);
     private ConcurrentHashMap<String, Integer/* msgId, loadFacotr*/> loadFactorMap = new ConcurrentHashMap<>();
     private final int SLEEP_FOR_A_WHILE = 100;
@@ -223,7 +223,7 @@ public class RMQProducerPerf {
     }
 
     public static int getLoadFactor(int msgSize) {
-        return Math.max(msgSize >> 10, 8);
+        return Math.max(msgSize >> 10, 32);
     }
 
     public void stop() {
@@ -359,9 +359,6 @@ public class RMQProducerPerf {
                             if (asyncEnable) {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
-                                if (getLoadFactor(messageSize) > loadThreshold.get()) {
-                                    loadThreshold.set(getLoadFactor(messageSize));
-                                }
                                 while (currentLoadFactor.get() > loadThreshold.get()) {
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
