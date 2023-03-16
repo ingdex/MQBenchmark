@@ -366,6 +366,7 @@ public class RMQProducerPerf {
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
                                 }
+                                currentLoadFactor.addAndGet(getLoadFactor(messageSize));
                                 producer.send(msg, new SendCallback() {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
@@ -380,10 +381,10 @@ public class RMQProducerPerf {
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
+                                        currentLoadFactor.addAndGet(-getLoadFactor(messageSize));
                                         loadThreshold.set(loadThreshold.get() / 2);
                                     }
                                 });
-                                currentLoadFactor.addAndGet(getLoadFactor(messageSize));
                             } else {
                                 producer.send(msg);
                                 updateStatsSuccess(statsBenchmark, beginTimestamp);
