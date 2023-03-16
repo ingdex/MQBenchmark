@@ -223,7 +223,7 @@ public class RMQProducerPerf {
     }
 
     public static int getLoadFactor(int msgSize) {
-        return Math.max(msgSize >> 10, 1);
+        return Math.max(msgSize >> 10, 4);
     }
 
     public void stop() {
