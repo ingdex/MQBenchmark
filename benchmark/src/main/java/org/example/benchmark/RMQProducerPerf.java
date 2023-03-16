@@ -68,7 +68,8 @@ public class RMQProducerPerf {
 //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private byte[] msgBody;
-    private AtomicInteger MAX_LOAD_FACTOR = new AtomicInteger(4096);
+    private final int MAX_LOAD_FACTOR = 4096;
+    private AtomicInteger loadThreshold = new AtomicInteger(4096);
     private AtomicInteger currentLoadFactor = new AtomicInteger(0);
     private ConcurrentHashMap<String, Integer/* msgId, loadFacotr*/> loadFactorMap = new ConcurrentHashMap<>();
     private final int SLEEP_FOR_A_WHILE = 100;
@@ -218,7 +219,7 @@ public class RMQProducerPerf {
     }
 
     public int getMaxLoadFacotr() {
-        return MAX_LOAD_FACTOR.get();
+        return MAX_LOAD_FACTOR;
     }
 
     public static int getLoadFactor(int msgSize) {
@@ -358,23 +359,28 @@ public class RMQProducerPerf {
                             if (asyncEnable) {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
-                                while (currentLoadFactor.get() > MAX_LOAD_FACTOR.get()) {
+                                if (getLoadFactor(messageSize) > loadThreshold.get()) {
+                                    loadThreshold.set(getLoadFactor(messageSize));
+                                }
+                                while (currentLoadFactor.get() > loadThreshold.get()) {
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
-                                    System.out.println("sleep for a while");
+//                                    System.out.println("sleep for a while");
                                 }
                                 producer.send(msg, new SendCallback() {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
                                         currentLoadFactor.addAndGet(-getLoadFactor(messageSize));
-                                        MAX_LOAD_FACTOR.incrementAndGet();
+                                        if (loadThreshold.get() < MAX_LOAD_FACTOR) {
+                                            loadThreshold.incrementAndGet();
+                                        }
                                     }
 
                                     @Override
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
-                                        MAX_LOAD_FACTOR.set(Math.max(1024, MAX_LOAD_FACTOR.get() / 2));
+                                        loadThreshold.set(loadThreshold.get() / 2);
                                     }
                                 });
                                 currentLoadFactor.addAndGet(getLoadFactor(messageSize));
