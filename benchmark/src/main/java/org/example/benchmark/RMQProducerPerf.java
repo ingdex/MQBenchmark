@@ -367,7 +367,7 @@ public class RMQProducerPerf {
                                     }
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
-                                    log.info(String.format("sleep for a while, currentLoadFactor = %d, factor = %d, loadThreshold = ", currentLoadFactor.get(), factor, loadThreshold.get()));
+                                    log.info(String.format("sleep for a while, currentLoadFactor = %d, factor = %d, loadThreshold = %d", currentLoadFactor.get(), factor, loadThreshold.get()));
                                 }
                                 currentLoadFactor.addAndGet(factor);
                                 producer.send(msg, new SendCallback() {
