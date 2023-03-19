@@ -367,6 +367,7 @@ public class RMQProducerPerf {
                                     }
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
+                                    log.info(String.format("sleep for a while, currentLoadFactor = %d, factor = %d, loadThreshold = ", currentLoadFactor.get(), factor, loadThreshold.get()));
                                 }
                                 currentLoadFactor.addAndGet(factor);
                                 producer.send(msg, new SendCallback() {
@@ -377,8 +378,9 @@ public class RMQProducerPerf {
                                         int count = successCounter.incrementAndGet();
                                         if (count == sendThreshold) {
                                             successCounter.set(0);
-                                            if (loadThreshold.get() < MAX_LOAD_FACTOR) {
+                                            if (loadThreshold.get() < MAX_LOAD_FACTOR && loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
                                                 loadThreshold.addAndGet(factor);
+                                                log.info("increase loadThreshold from %d to %d", loadThreshold.get() - factor, loadThreshold.get());
                                             }
                                         }
                                     }
@@ -390,6 +392,7 @@ public class RMQProducerPerf {
                                         currentLoadFactor.addAndGet(-factor);
                                         loadThreshold.set(loadThreshold.get() >> 1);
                                         successCounter.set(0);
+                                        log.info(String.format("On exception, loadThreshold set to %d", loadThreshold.get()));
                                     }
                                 });
                             } else {
