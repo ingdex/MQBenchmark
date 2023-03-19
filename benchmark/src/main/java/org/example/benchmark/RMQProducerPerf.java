@@ -65,13 +65,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class RMQProducerPerf {
-//    private static DefaultMQProducer producer = null;
+    //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private byte[] msgBody;
-    private final int MAX_LOAD_FACTOR = 8192;
-    private AtomicInteger loadThreshold = new AtomicInteger(8192);
+    private final int MAX_LOAD_FACTOR = 4096;
+    private AtomicInteger loadThreshold = new AtomicInteger(MAX_LOAD_FACTOR);
     private AtomicInteger currentLoadFactor = new AtomicInteger(0);
-    private ConcurrentHashMap<String, Integer/* msgId, loadFacotr*/> loadFactorMap = new ConcurrentHashMap<>();
+    private final int sendThreshold = 32;
     private final int SLEEP_FOR_A_WHILE = 100;
     private AtomicBoolean running = new AtomicBoolean(true);
 
@@ -223,7 +223,7 @@ public class RMQProducerPerf {
     }
 
     public static int getLoadFactor(int msgSize) {
-        return Math.max(msgSize >> 10, 32);
+        return Math.max(msgSize >> 10, 4);
     }
 
     public void stop() {
@@ -327,6 +327,7 @@ public class RMQProducerPerf {
                         try {
                             final Message msg = buildMessage(topicThisThread);
                             final long beginTimestamp = System.currentTimeMillis();
+                            AtomicInteger successCounter = new AtomicInteger(0);
                             if (keyEnable) {
                                 msg.setKeys(String.valueOf(beginTimestamp / 1000));
                             }
@@ -369,8 +370,9 @@ public class RMQProducerPerf {
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
                                         currentLoadFactor.addAndGet(-getLoadFactor(messageSize));
-                                        if (loadThreshold.get() < MAX_LOAD_FACTOR) {
-                                            loadThreshold.incrementAndGet();
+                                        int count = successCounter.incrementAndGet();
+                                        if (loadThreshold.get() < MAX_LOAD_FACTOR && count == sendThreshold) {
+                                            loadThreshold.addAndGet(getLoadFactor(messageSize));
                                         }
                                     }
 
@@ -380,6 +382,7 @@ public class RMQProducerPerf {
                                         statsBenchmark.getSendRequestFailedCount().increment();
                                         currentLoadFactor.addAndGet(-getLoadFactor(messageSize));
                                         loadThreshold.set(loadThreshold.get() / 2);
+                                        successCounter.set(0);
                                     }
                                 });
                             } else {
