@@ -361,10 +361,10 @@ public class RMQProducerPerf {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
                                 int factor = getLoadFactor(messageSize);
-                                if (loadThreshold.get() < factor) {
-                                    loadThreshold.set(factor);
-                                }
                                 while (currentLoadFactor.get() + factor > loadThreshold.get()) {
+                                    if (loadThreshold.get() < factor) {
+                                        loadThreshold.set(factor);
+                                    }
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
                                 }
@@ -375,9 +375,11 @@ public class RMQProducerPerf {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
                                         currentLoadFactor.addAndGet(-factor);
                                         int count = successCounter.incrementAndGet();
-                                        if (loadThreshold.get() < MAX_LOAD_FACTOR && count == sendThreshold) {
-                                            loadThreshold.addAndGet(factor);
+                                        if (count == sendThreshold) {
                                             successCounter.set(0);
+                                            if (loadThreshold.get() < MAX_LOAD_FACTOR) {
+                                                loadThreshold.addAndGet(factor);
+                                            }
                                         }
                                     }
 
