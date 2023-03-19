@@ -360,19 +360,24 @@ public class RMQProducerPerf {
                             if (asyncEnable) {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
-                                while (currentLoadFactor.get() > loadThreshold.get()) {
+                                int factor = getLoadFactor(messageSize);
+                                if (loadThreshold.get() < factor) {
+                                    loadThreshold.set(factor);
+                                }
+                                while (currentLoadFactor.get() + factor > loadThreshold.get()) {
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
                                 }
-                                currentLoadFactor.addAndGet(getLoadFactor(messageSize));
+                                currentLoadFactor.addAndGet(factor);
                                 producer.send(msg, new SendCallback() {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
-                                        currentLoadFactor.addAndGet(-getLoadFactor(messageSize));
+                                        currentLoadFactor.addAndGet(-factor);
                                         int count = successCounter.incrementAndGet();
                                         if (loadThreshold.get() < MAX_LOAD_FACTOR && count == sendThreshold) {
-                                            loadThreshold.addAndGet(getLoadFactor(messageSize));
+                                            loadThreshold.addAndGet(factor);
+                                            successCounter.set(0);
                                         }
                                     }
 
@@ -380,8 +385,8 @@ public class RMQProducerPerf {
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
-                                        currentLoadFactor.addAndGet(-getLoadFactor(messageSize));
-                                        loadThreshold.set(loadThreshold.get() / 2);
+                                        currentLoadFactor.addAndGet(-factor);
+                                        loadThreshold.set(loadThreshold.get() >> 1);
                                         successCounter.set(0);
                                     }
                                 });
