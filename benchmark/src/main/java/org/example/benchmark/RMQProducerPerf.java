@@ -391,6 +391,7 @@ public class RMQProducerPerf {
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
+                                        currentLoadFactor.addAndGet(-factor);
                                         loadThreshold.set(loadThreshold.get() >> 1);
 //                                        loadThreshold.set(currentLoadFactor.addAndGet(-factor));
                                         successCounter.set(0);
