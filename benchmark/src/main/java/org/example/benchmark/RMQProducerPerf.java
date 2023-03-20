@@ -361,13 +361,18 @@ public class RMQProducerPerf {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
                                 int factor = getLoadFactor(messageSize);
-                                while (currentLoadFactor.get() + factor > loadThreshold.get()) {
+                                int x, y;
+                                x = currentLoadFactor.get();
+                                y = loadThreshold.get();
+                                while (x + factor > y) {
                                     if (loadThreshold.get() < factor) {
                                         loadThreshold.set(factor);
                                     }
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
-                                    log.info(String.format("sleep for a while, currentLoadFactor = %d, factor = %d, loadThreshold = %d", currentLoadFactor.get(), factor, loadThreshold.get()));
+                                    log.info(String.format("sleep for a while, currentLoadFactor = %d, factor = %d, loadThreshold = %d", x, factor, y));
+                                    x = currentLoadFactor.get();
+                                    y = loadThreshold.get();
                                 }
                                 currentLoadFactor.addAndGet(factor);
                                 producer.send(msg, new SendCallback() {
