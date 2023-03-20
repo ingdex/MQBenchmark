@@ -381,9 +381,10 @@ public class RMQProducerPerf {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
                                         currentLoadFactor.addAndGet(-factor);
                                         int count = successCounter.incrementAndGet();
+                                        log.info("send sucesss successCounter set to" + count);
                                         if (count == sendThreshold) {
                                             successCounter.set(0);
-                                            if (loadThreshold.get() < MAX_LOAD_FACTOR && loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
+                                            if (loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
                                                 loadThreshold.addAndGet(factor);
                                                 log.info("increase loadThreshold from %d to %d", loadThreshold.get() - factor, loadThreshold.get());
                                             }
