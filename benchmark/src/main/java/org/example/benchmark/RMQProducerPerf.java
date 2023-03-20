@@ -42,6 +42,7 @@ import org.apache.rocketmq.client.log.ClientLogger;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.UtilAll;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.logging.InternalLogger;
@@ -69,9 +70,10 @@ public class RMQProducerPerf {
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private byte[] msgBody;
     private final int MAX_LOAD_FACTOR = 20480;
+    private final int SEND_THRESHOLD_INIT = 32;
     private AtomicInteger loadThreshold = new AtomicInteger(MAX_LOAD_FACTOR);
     private AtomicInteger currentLoadFactor = new AtomicInteger(0);
-    private final int sendThreshold = 32;
+    private AtomicInteger sendThreshold = new AtomicInteger(SEND_THRESHOLD_INIT);
     private final int SLEEP_FOR_A_WHILE = 100;
     private AtomicBoolean running = new AtomicBoolean(true);
 
@@ -376,15 +378,21 @@ public class RMQProducerPerf {
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
                                         currentLoadFactor.addAndGet(-factor);
-                                        int count = successCounter.incrementAndGet();
-                                        log.info("send sucesss successCounter set to" + count);
-                                        if (count == sendThreshold) {
-                                            successCounter.set(0);
-                                            if (loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
-                                                loadThreshold.addAndGet(factor);
-                                                log.info("increase loadThreshold from " + (loadThreshold.get() - factor) + " to " + loadThreshold.get());
+                                        if (sendResult.getSendStatus() != SendStatus.SEND_OK_FLOW_CONTROL) {
+                                            int count = successCounter.incrementAndGet();
+                                            log.info("send success successCounter set to" + count);
+                                            if (count == sendThreshold.get()) {
+                                                successCounter.set(0);
+                                                if (loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
+                                                    loadThreshold.addAndGet(factor);
+                                                    log.info("increase loadThreshold from " + (loadThreshold.get() - factor) + " to " + loadThreshold.get());
+                                                }
                                             }
+                                        } else {
+                                            log.info("send success and in flow control");
+                                            successCounter.set(0);
                                         }
+
                                     }
 
                                     @Override
