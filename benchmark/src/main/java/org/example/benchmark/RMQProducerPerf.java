@@ -323,11 +323,11 @@ public class RMQProducerPerf {
                 @Override
                 public void run() {
                     int num = 0;
+                    AtomicInteger successCounter = new AtomicInteger(0);
                     while (running.get()) {
                         try {
                             final Message msg = buildMessage(topicThisThread);
                             final long beginTimestamp = System.currentTimeMillis();
-                            AtomicInteger successCounter = new AtomicInteger(0);
                             if (keyEnable) {
                                 msg.setKeys(String.valueOf(beginTimestamp / 1000));
                             }
