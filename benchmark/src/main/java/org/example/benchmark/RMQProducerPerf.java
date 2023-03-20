@@ -382,7 +382,7 @@ public class RMQProducerPerf {
                                             successCounter.set(0);
                                             if (loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
                                                 loadThreshold.addAndGet(factor);
-                                                log.info("increase loadThreshold from %d to %d", loadThreshold.get() - factor, loadThreshold.get());
+                                                log.info("increase loadThreshold from %d to %d" + (loadThreshold.get() - factor) + loadThreshold.get());
                                             }
                                         }
                                     }
