@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -49,7 +50,7 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 public class KafkaProducerPerf {
-    private static org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer;
+    private org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private static AtomicBoolean running = new AtomicBoolean(true);
 
@@ -109,7 +110,8 @@ public class KafkaProducerPerf {
             String producerGroup = "producer_benchmark_" + i;
             sendThreadPool.execute(() -> {
                 try {
-                    KafkaProducerPerf.start(subArgs, statsBenchmark);
+                    KafkaProducerPerf kafkaProducerPerf = new KafkaProducerPerf();
+                    kafkaProducerPerf.start(subArgs, statsBenchmark);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -185,8 +187,8 @@ public class KafkaProducerPerf {
         return list.toArray(new String[0]);
     }
 
-    public static void setProducer(org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer) {
-        KafkaProducerPerf.producer = producer;
+    public void setProducer(org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer) {
+        this.producer = producer;
     }
 
 //    public static void setStatsBenchmark(StatsBenchmarkProducer statsBenchmark) {
@@ -197,7 +199,7 @@ public class KafkaProducerPerf {
         running.set(false);
     }
 
-    public static void start(String[] args, StatsBenchmarkProducer statsBenchmark) throws Exception {
+    public void start(String[] args, StatsBenchmarkProducer statsBenchmark) throws Exception {
         ArgumentParser parser = argParser();
         try {
             Namespace res = parser.parseArgs(args);
@@ -217,10 +219,14 @@ public class KafkaProducerPerf {
             final int threadNum = res.getInt("threadNum");
             final boolean asyncEnable = res.getBoolean("asyncEnable");
             final List<String> topicList = new ArrayList<>();
-            for (int i = 0; i < topicNum; i++) {
-                int numberOfDigits = SLMathUtil.getNumberOfDigits(topicNum);
-                String format = String.format("%%s%%0%dd", numberOfDigits);
-                topicList.add(String.format(format, topic, i));
+            if (topicNum > 1) {
+                for (int i = 0; i < topicNum; i++) {
+                    int numberOfDigits = SLMathUtil.getNumberOfDigits(topicNum);
+                    String format = String.format("%%s%%0%dd", numberOfDigits);
+                    topicList.add(String.format(format, topic, i));
+                }
+            } else {
+                topicList.add(topic);
             }
             // since default value gets printed with the help text, we are escaping \n there and replacing it with correct value here.
             String payloadDelimiter = res.getString("payloadDelimiter").equals("\\n") ? "\n" : res.getString("payloadDelimiter");
@@ -250,18 +256,8 @@ public class KafkaProducerPerf {
 
             /* setup perf test */
             Random random = new Random(0);
-//            ProducerRecord<byte[], byte[]> record;
-//            Stats stats = new Stats(messageNum, 5000);
-//            long startMs = System.currentTimeMillis();
 
             final ExecutorService sendThreadPool = Executors.newFixedThreadPool(threadNum);
-            
-//            if (statsBenchmark == null) {
-//                statsBenchmark = new StatsBenchmarkProducer();
-//            }
-
-//            ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
-//                    new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
 
             final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
 
@@ -274,36 +270,6 @@ public class KafkaProducerPerf {
                     msgNums[0] += mod;
                 }
             }
-
-//            executorService.scheduleAtFixedRate(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    snapshotList.addLast(statsBenchmark.createSnapshot());
-//                    if (snapshotList.size() > 10) {
-//                        snapshotList.removeFirst();
-//                    }
-//                }
-//            }, 1000, 1000, TimeUnit.MILLISECONDS);
-//
-//            executorService.scheduleAtFixedRate(new TimerTask() {
-//                private void printStats() {
-//                    if (snapshotList.size() >= 10) {
-//                        doPrintStats(snapshotList, statsBenchmark, false);
-//                    }
-//                }
-//
-//                @Override
-//                public void run() {
-//                    try {
-//                        this.printStats();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }, 10000, 10000, TimeUnit.MILLISECONDS);
-
-            int currentTransactionSize = 0;
-            long transactionStartTime = 0;
 
             final byte[] payload = generateRandomPayload(messageSize, payloadByteList, random);
 
@@ -338,7 +304,11 @@ public class KafkaProducerPerf {
                                     }
                                 });
                             } else {
-                                System.out.println("not support");
+                                try {
+                                    producer.send(record).get();
+                                } catch (InterruptedException | ExecutionException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 break;
                             }
                             if (messageNum > 0 && ++num >= msgNumLimit) {

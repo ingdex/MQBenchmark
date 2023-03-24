@@ -32,7 +32,8 @@ public class KafkaProducerTest {
         }).when(producer).send(any(), any());
         doNothing().when(producer).flush();
         doNothing().when(producer).close();
-        KafkaProducerPerf.setProducer(producer);
+        KafkaProducerPerf kafkaProducerPerf = new KafkaProducerPerf();
+        kafkaProducerPerf.setProducer(producer);
         StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
 //        KafkaProducerPerf.setStatsBenchmark(statsBenchmark);
         new Thread(()->{
@@ -44,7 +45,7 @@ public class KafkaProducerTest {
                 throw new RuntimeException(e);
             }
         }).start();
-        KafkaProducerPerf.start(new String[]{"--asyncEnable", "true", "--topic", "topic", "-s", "4096", "-n", "0", "--producer-props", "props=props"}, statsBenchmark);
+        kafkaProducerPerf.start(new String[]{"--asyncEnable", "true", "--topic", "topic", "-s", "4096", "-n", "0", "--producer-props", "props=props"}, statsBenchmark);
 //        KafkaProducerPerf.main(new String[]{"-c", "/Users/ingdex/workspace/MQBenchmark/distribution/conf/kafka.json"});
         System.out.println("statsBenchmark.getSendRequestSuccessCount()" + statsBenchmark.getSendRequestSuccessCount());
         System.out.println("totalMsg.longValue()" + totalMsg.longValue());
