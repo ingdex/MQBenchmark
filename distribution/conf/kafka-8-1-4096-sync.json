@@ -8,7 +8,7 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   },
   {
     "topic": "topic1",
@@ -19,7 +19,7 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   },
   {
     "topic": "topic2",
@@ -30,7 +30,7 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   },
   {
     "topic": "topic3",
@@ -41,7 +41,7 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   },
   {
     "topic": "topic4",
@@ -52,7 +52,7 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   },
   {
     "topic": "topic5",
@@ -63,7 +63,7 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   },
   {
     "topic": "topic6",
@@ -74,7 +74,7 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   },
   {
     "topic": "topic7",
@@ -85,6 +85,6 @@
       "bootstrap.servers=192.168.0.200:9092"
     ],
     "threadNum": 1,
-    "asyncEnable": true
+    "asyncEnable": false
   }
 ]

@@ -3,7 +3,7 @@
     "topic": "topic0",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],
@@ -14,7 +14,7 @@
     "topic": "topic1",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],
@@ -25,7 +25,7 @@
     "topic": "topic2",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],
@@ -36,7 +36,7 @@
     "topic": "topic3",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],
@@ -47,7 +47,7 @@
     "topic": "topic4",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],
@@ -58,7 +58,7 @@
     "topic": "topic5",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],
@@ -69,7 +69,7 @@
     "topic": "topic6",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],
@@ -80,7 +80,7 @@
     "topic": "topic7",
     "topicNum": 1,
     "messageNum": 0,
-    "messageSize": 4096,
+    "messageSize": 32768,
     "producerProps": [
       "bootstrap.servers=192.168.0.200:9092"
     ],

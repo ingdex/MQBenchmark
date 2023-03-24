@@ -4,7 +4,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   },
@@ -13,7 +15,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   },
@@ -22,7 +26,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   },
@@ -31,7 +37,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   },
@@ -40,7 +48,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   },
@@ -49,7 +59,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   },
@@ -58,7 +70,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   },
@@ -67,7 +81,9 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 1024,
-    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+    "producerProps": [
+      "bootstrap.servers=192.168.0.200:9092"
+    ],
     "threadNum": 1,
     "asyncEnable": true
   }
