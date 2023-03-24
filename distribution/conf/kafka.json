@@ -4,7 +4,7 @@
     "topicNum": 1,
     "messageNum": 0,
     "messageSize": 4096,
-    "producerConfig": "/Users/ingdex/workspace/MQBenchmark/distribution/conf/kafkaproducer.properties",
+    "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
     "threadNum": 1,
     "asyncEnable": true
   }
