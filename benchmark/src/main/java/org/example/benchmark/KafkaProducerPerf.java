@@ -154,7 +154,8 @@ public class KafkaProducerPerf {
         }
         if (conf.producerProps != null) {
             list.add("--producer-props");
-            list.add(conf.producerProps.toString());
+            String producerProps = conf.producerProps.toString();
+            list.add(producerProps.substring(1, producerProps.length()-1));
         }
         if (conf.producerConfig != null) {
             list.add("--producer.config");
