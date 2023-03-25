@@ -31,7 +31,7 @@ doTest() {
   echo "\n$1\n" >> $2
   # 执行程序A，并将其输出重定向到文件中
   ./kafkaproducer.sh -c ../conf/$1 > output.log &
-  sleep 3m
+  sleep 4m
   # RMQProducerPerf
   PID=$(ps -ef | grep "KafkaProducerPerf" | grep -v grep | awk '{print $2}')
   kill -9 $PID
@@ -41,14 +41,10 @@ doTest() {
 
 export path=$(pwd)
 
-if jps | grep -v grep | grep $KafkaProcessName >/dev/null; then
-  echo "$KafkaProcessName进程存在"
-else
-  echo "$KafkaProcessName进程不存在，启动B$KafkaProcessName"
-  restartKafka
-fi
-
 # async
+
+cp /root/kafka_2.13-3.3.1-modify/config/asyncserver.properties /root/kafka_2.13-3.3.1-modify/config/server.properties
+restartKafka
 # 外层循环遍历数字i，i的取值为8、16、32、64
 for i in 8 16 32 64 128 256; do
   # 内层循环遍历数字j，j的取值为1024、4096、8192、16384、32768、65536、131072、1048576
@@ -59,10 +55,48 @@ for i in 8 16 32 64 128 256; do
       restartKafka
     fi
     configFilename="kafka-$i-1-$j.json"
-    resultFilename="result-$testTarget-async-producer.txt"
+    resultFilename="result-async-$testTarget-async-producer.txt"
     cd $path
     doTest $configFilename $resultFilename
   done
 done
 
-#restartKafka
+# sync
+
+cp /root/kafka_2.13-3.3.1-modify/config/syncserver.properties /root/kafka_2.13-3.3.1-modify/config/server.properties
+restartKafka
+# 外层循环遍历数字i，i的取值为8、16、32、64
+for i in 8 16 32 64 128 256; do
+  # 内层循环遍历数字j，j的取值为1024、4096、8192、16384、32768、65536、131072、1048576
+  for j in 1024 4096 8192 16384 32768 65536 131072 1048576; do
+    USAGE=$(df -h $KafkaLogDir | awk '{print $5}' | tail -n 1 | sed 's/%//')
+    if [ $USAGE -gt 60 ]; then
+      echo "已用存储空间大于60%！重启"
+      restartKafka
+    fi
+    configFilename="kafka-$i-1-$j.json"
+    resultFilename="result-sync-$testTarget-async-producer.txt"
+    cd $path
+    doTest $configFilename $resultFilename
+  done
+done
+
+# async
+
+cp /root/kafka_2.13-3.3.1-modify/config/async1000server.properties /root/kafka_2.13-3.3.1-modify/config/server.properties
+restartKafka
+# 外层循环遍历数字i，i的取值为8、16、32、64
+for i in 8 16 32 64 128 256; do
+  # 内层循环遍历数字j，j的取值为1024、4096、8192、16384、32768、65536、131072、1048576
+  for j in 1024 4096 8192 16384 32768 65536 131072 1048576; do
+    USAGE=$(df -h $KafkaLogDir | awk '{print $5}' | tail -n 1 | sed 's/%//')
+    if [ $USAGE -gt 60 ]; then
+      echo "已用存储空间大于60%！重启"
+      restartKafka
+    fi
+    configFilename="kafka-$i-1-$j.json"
+    resultFilename="result-async1000-$testTarget-async-producer.txt"
+    cd $path
+    doTest $configFilename $resultFilename
+  done
+done
