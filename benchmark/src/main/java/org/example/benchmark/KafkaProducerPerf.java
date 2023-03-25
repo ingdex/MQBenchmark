@@ -307,7 +307,9 @@ public class KafkaProducerPerf {
                             } else {
                                 try {
                                     producer.send(record).get();
+                                    updateStatsSuccess(statsBenchmark, beginTimestamp);
                                 } catch (InterruptedException | ExecutionException e) {
+                                    e.printStackTrace();
                                     throw new RuntimeException(e);
                                 }
                             }
