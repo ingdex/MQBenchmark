@@ -1,12 +1,14 @@
 #!/bin/bash
 
-export testTarget="async-kafka"
+export testTarget="kafka"
 export KafkaPath="/root/kafka_2.13-3.3.1-modify"
 export KafkaLogDir="/root/data"
 export KafkaProcessName="Kafka"
 export ZookeeperProcessName="QuorumPeerMain"
+export ZookeeperPort = 2181
+export KafkaPort = 9092
 
-restartKafka() {
+shutdownKafka0() {
   PID=$(jps | grep $KafkaProcessName | grep -v grep | awk '{print $1}')
   kill -9 $PID
   sleep 10s
@@ -19,24 +21,42 @@ restartKafka() {
   sleep 1s
   rm -r $KafkaLogDir/zookeeper
   sleep 1s
+}
+
+shutdownKafka() {
+  shutdownKafka0
+  # 需要检查的端口号
+  # 检查指定端口是否被占用
+  while true; do
+    kafkaStatus=$(lsof -i :$KafkaPort | grep LISTEN)
+    zookeeperStatus=$(lsof -i :$ZookeeperPort | grep LISTEN)
+    # 如果端口被占用，则执行关机操作
+    if [ -z "$$kafkaStatus" ] && [ -z "$zookeeperStatus" ]; then
+      break
+    fi
+    shutdownKafka0
+  done
+}
+
+restartKafka() {
+  shutdownKafka
   cd $KafkaPath
-  echo $(date) >> nohup.out
   nohup sh ./bin/zookeeper-server-start.sh config/zookeeper.properties &
   sleep 5s
-  nohup sh ./bin/kafka-server-start.sh config/server.properties > broker.nohup1 2> broker.nohup2 &
+  nohup sh ./bin/kafka-server-start.sh config/server.properties >broker.nohup1 2>broker.nohup2 &
   sleep 10s
 }
 
 doTest() {
-  echo "\n$1\n" >> $2
+  echo "\n$1\n" >>$2
   # 执行程序A，并将其输出重定向到文件中
-  ./kafkaproducer.sh -c ../conf/$1 > output.log &
+  ./kafkaproducer.sh -c ../conf/$1 >output.log &
   sleep 4m
   # RMQProducerPerf
   PID=$(ps -ef | grep "KafkaProducerPerf" | grep -v grep | awk '{print $2}')
   kill -9 $PID
   sleep 5s
-  grep -o '^Current Time: .*' output.log >> $2
+  grep -o '^Current Time: .*' output.log >>$2
 }
 
 export path=$(pwd)

@@ -310,7 +310,6 @@ public class KafkaProducerPerf {
                                 } catch (InterruptedException | ExecutionException e) {
                                     throw new RuntimeException(e);
                                 }
-                                break;
                             }
                             if (messageNum > 0 && ++num >= msgNumLimit) {
                                 break;
