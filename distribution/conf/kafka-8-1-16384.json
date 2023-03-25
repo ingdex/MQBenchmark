@@ -5,7 +5,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true
@@ -16,7 +17,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true
@@ -27,7 +29,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true
@@ -38,7 +41,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true
@@ -49,7 +53,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true
@@ -60,7 +65,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true
@@ -71,7 +77,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true
@@ -82,7 +89,8 @@
     "messageNum": 0,
     "messageSize": 16384,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=16384"
     ],
     "threadNum": 1,
     "asyncEnable": true

@@ -21,7 +21,7 @@ def do_gen_conf(num_topics, message_size, async_enable):
             "topicNum": 1,
             "messageNum": 0,
             "messageSize": message_size,
-            "producerProps": ["bootstrap.servers=192.168.0.200:9092"],
+            "producerProps": ["bootstrap.servers=192.168.0.200:9092", "batch.size={}".format(message_size)],
             "threadNum": 1,
             "asyncEnable": async_enable
         }

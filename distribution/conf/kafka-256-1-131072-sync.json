@@ -5,7 +5,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -16,7 +17,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -27,7 +29,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -38,7 +41,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -49,7 +53,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -60,7 +65,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -71,7 +77,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -82,7 +89,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -93,7 +101,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -104,7 +113,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -115,7 +125,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -126,7 +137,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -137,7 +149,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -148,7 +161,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -159,7 +173,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -170,7 +185,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -181,7 +197,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -192,7 +209,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -203,7 +221,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -214,7 +233,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -225,7 +245,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -236,7 +257,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -247,7 +269,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -258,7 +281,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -269,7 +293,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -280,7 +305,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -291,7 +317,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -302,7 +329,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -313,7 +341,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -324,7 +353,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -335,7 +365,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -346,7 +377,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -357,7 +389,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -368,7 +401,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -379,7 +413,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -390,7 +425,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -401,7 +437,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -412,7 +449,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -423,7 +461,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -434,7 +473,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -445,7 +485,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -456,7 +497,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -467,7 +509,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -478,7 +521,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -489,7 +533,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -500,7 +545,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -511,7 +557,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -522,7 +569,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -533,7 +581,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -544,7 +593,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -555,7 +605,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -566,7 +617,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -577,7 +629,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -588,7 +641,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -599,7 +653,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -610,7 +665,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -621,7 +677,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -632,7 +689,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -643,7 +701,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -654,7 +713,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -665,7 +725,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -676,7 +737,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -687,7 +749,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -698,7 +761,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -709,7 +773,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -720,7 +785,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -731,7 +797,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -742,7 +809,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -753,7 +821,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -764,7 +833,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -775,7 +845,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -786,7 +857,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -797,7 +869,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -808,7 +881,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -819,7 +893,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -830,7 +905,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -841,7 +917,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -852,7 +929,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -863,7 +941,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -874,7 +953,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -885,7 +965,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -896,7 +977,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -907,7 +989,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -918,7 +1001,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -929,7 +1013,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -940,7 +1025,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -951,7 +1037,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -962,7 +1049,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -973,7 +1061,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -984,7 +1073,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -995,7 +1085,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1006,7 +1097,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1017,7 +1109,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1028,7 +1121,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1039,7 +1133,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1050,7 +1145,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1061,7 +1157,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1072,7 +1169,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1083,7 +1181,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1094,7 +1193,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1105,7 +1205,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1116,7 +1217,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1127,7 +1229,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1138,7 +1241,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1149,7 +1253,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1160,7 +1265,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1171,7 +1277,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1182,7 +1289,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1193,7 +1301,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1204,7 +1313,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1215,7 +1325,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1226,7 +1337,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1237,7 +1349,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1248,7 +1361,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1259,7 +1373,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1270,7 +1385,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1281,7 +1397,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1292,7 +1409,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1303,7 +1421,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1314,7 +1433,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1325,7 +1445,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1336,7 +1457,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1347,7 +1469,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1358,7 +1481,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1369,7 +1493,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1380,7 +1505,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1391,7 +1517,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1402,7 +1529,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1413,7 +1541,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1424,7 +1553,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1435,7 +1565,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1446,7 +1577,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1457,7 +1589,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1468,7 +1601,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1479,7 +1613,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1490,7 +1625,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1501,7 +1637,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1512,7 +1649,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1523,7 +1661,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1534,7 +1673,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1545,7 +1685,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1556,7 +1697,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1567,7 +1709,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1578,7 +1721,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1589,7 +1733,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1600,7 +1745,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1611,7 +1757,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1622,7 +1769,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1633,7 +1781,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1644,7 +1793,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1655,7 +1805,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1666,7 +1817,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1677,7 +1829,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1688,7 +1841,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1699,7 +1853,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1710,7 +1865,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1721,7 +1877,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1732,7 +1889,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1743,7 +1901,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1754,7 +1913,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1765,7 +1925,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1776,7 +1937,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1787,7 +1949,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1798,7 +1961,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1809,7 +1973,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1820,7 +1985,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1831,7 +1997,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1842,7 +2009,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1853,7 +2021,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1864,7 +2033,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1875,7 +2045,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1886,7 +2057,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1897,7 +2069,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1908,7 +2081,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1919,7 +2093,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1930,7 +2105,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1941,7 +2117,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1952,7 +2129,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1963,7 +2141,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1974,7 +2153,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1985,7 +2165,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -1996,7 +2177,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2007,7 +2189,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2018,7 +2201,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2029,7 +2213,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2040,7 +2225,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2051,7 +2237,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2062,7 +2249,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2073,7 +2261,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2084,7 +2273,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2095,7 +2285,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2106,7 +2297,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2117,7 +2309,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2128,7 +2321,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2139,7 +2333,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2150,7 +2345,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2161,7 +2357,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2172,7 +2369,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2183,7 +2381,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2194,7 +2393,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2205,7 +2405,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2216,7 +2417,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2227,7 +2429,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2238,7 +2441,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2249,7 +2453,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2260,7 +2465,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2271,7 +2477,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2282,7 +2489,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2293,7 +2501,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2304,7 +2513,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2315,7 +2525,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2326,7 +2537,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2337,7 +2549,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2348,7 +2561,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2359,7 +2573,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2370,7 +2585,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2381,7 +2597,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2392,7 +2609,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2403,7 +2621,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2414,7 +2633,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2425,7 +2645,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2436,7 +2657,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2447,7 +2669,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2458,7 +2681,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2469,7 +2693,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2480,7 +2705,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2491,7 +2717,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2502,7 +2729,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2513,7 +2741,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2524,7 +2753,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2535,7 +2765,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2546,7 +2777,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2557,7 +2789,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2568,7 +2801,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2579,7 +2813,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2590,7 +2825,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2601,7 +2837,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2612,7 +2849,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2623,7 +2861,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2634,7 +2873,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2645,7 +2885,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2656,7 +2897,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2667,7 +2909,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2678,7 +2921,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2689,7 +2933,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2700,7 +2945,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2711,7 +2957,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2722,7 +2969,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2733,7 +2981,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2744,7 +2993,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2755,7 +3005,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2766,7 +3017,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2777,7 +3029,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2788,7 +3041,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2799,7 +3053,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
@@ -2810,7 +3065,8 @@
     "messageNum": 0,
     "messageSize": 131072,
     "producerProps": [
-      "bootstrap.servers=192.168.0.200:9092"
+      "bootstrap.servers=192.168.0.200:9092",
+      "batch.size=131072"
     ],
     "threadNum": 1,
     "asyncEnable": false
