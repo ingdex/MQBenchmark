@@ -396,6 +396,7 @@ public class RMQProducerPerf {
 //                                        loadThreshold.set(currentLoadFactor.addAndGet(-factor));
                                         successCounter.set(0);
                                         log.info(String.format("On exception, loadThreshold set to %d", loadThreshold.get()));
+                                        log.info(e.toString());
                                     }
                                 });
                             } else {

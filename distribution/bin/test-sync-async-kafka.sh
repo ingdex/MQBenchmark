@@ -5,8 +5,8 @@ export KafkaPath="/root/kafka_2.13-3.3.1-modify"
 export KafkaLogDir="/root/data"
 export KafkaProcessName="Kafka"
 export ZookeeperProcessName="QuorumPeerMain"
-export ZookeeperPort = 2181
-export KafkaPort = 9092
+export ZookeeperPort=2181
+export KafkaPort=9092
 
 shutdownKafka0() {
   PID=$(jps | grep $KafkaProcessName | grep -v grep | awk '{print $1}')
@@ -28,10 +28,10 @@ shutdownKafka() {
   # 需要检查的端口号
   # 检查指定端口是否被占用
   while true; do
-    kafkaStatus=$(lsof -i :$KafkaPort | grep LISTEN)
-    zookeeperStatus=$(lsof -i :$ZookeeperPort | grep LISTEN)
-    # 如果端口被占用，则执行关机操作
-    if [ -z "$$kafkaStatus" ] && [ -z "$zookeeperStatus" ]; then
+    kafkaStatus=$(lsof -i:$KafkaPort | grep LISTEN)
+    zookeeperStatus=$(lsof -i:$ZookeeperPort | grep LISTEN)
+    # 如果端口被占用
+    if [ -z "$kafkaStatus" ] && [ -z "$zookeeperStatus" ]; then
       break
     fi
     shutdownKafka0
