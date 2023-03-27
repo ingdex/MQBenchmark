@@ -13,6 +13,8 @@ restartRocketMQ() {
   kill -9 $PID
   sleep 10s
   rm -r $rocketMQLogDir/rocketmq
+  rm -r /root/logs/*
+  rm -r /root/store/*
   sleep 10s
   cd "$1/bin"
   echo $(date) >> nohup.out
