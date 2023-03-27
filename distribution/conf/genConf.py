@@ -26,7 +26,7 @@ def do_gen_conf(num_topics, message_size, async_enable):
     #         "threadNum": 1,
     #         "asyncEnable": async_enable
     #     }
-    filename = "rocketmq{}-1-{}".format(num_topics, message_size)
+    filename = "rmq{}-1-{}".format(num_topics, message_size)
     if not async_enable:
         filename = filename + "-sync.json"
     else:
