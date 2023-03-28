@@ -290,6 +290,7 @@ public class KafkaProducerPerf {
                     public void run() {
                         int num = 0;
                         while (running.get()) {
+                            byte[] payload = generateRandomPayload(messageSize, payloadByteList, random);
                             ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(topicThisThread, payload);
                             long beginTimestamp = System.currentTimeMillis();
                             if (asyncEnable) {
