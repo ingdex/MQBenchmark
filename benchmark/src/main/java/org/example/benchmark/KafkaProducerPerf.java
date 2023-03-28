@@ -285,36 +285,28 @@ public class KafkaProducerPerf {
                     threadPerTopic = 1;
                 }
                 final String topicThisThread = topicList.get(i / threadPerTopic);
-                sendThreadPool.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        int num = 0;
-                        while (running.get()) {
-                            byte[] payload = generateRandomPayload(messageSize, payloadByteList, random);
-                            ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(topicThisThread, payload);
-                            long beginTimestamp = System.currentTimeMillis();
-                            if (asyncEnable) {
-                                producer.send(record, new Callback() {
-                                    @Override
-                                    public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                                        if (e != null) {
-                                            statsBenchmark.getSendRequestFailedCount().increment();
-                                            e.printStackTrace();
-                                            return;
-                                        }
-                                        updateStatsSuccess(statsBenchmark, beginTimestamp);
-                                    }
-                                });
-                            } else {
-                                //                                    producer.send(record).get();
+                while (running.get()) {
+//                            byte[] payload = generateRandomPayload(messageSize, payloadByteList, random);
+                    ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(topicThisThread, payload);
+                    long beginTimestamp = System.currentTimeMillis();
+                    if (asyncEnable) {
+                        producer.send(record, new Callback() {
+                            @Override
+                            public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                                if (e != null) {
+                                    statsBenchmark.getSendRequestFailedCount().increment();
+                                    e.printStackTrace();
+                                    return;
+                                }
                                 updateStatsSuccess(statsBenchmark, beginTimestamp);
                             }
-                            if (messageNum > 0 && ++num >= msgNumLimit) {
-                                break;
-                            }
-                        }
+                        });
+                    } else {
+
+                        //                                    producer.send(record).get();
+                        updateStatsSuccess(statsBenchmark, beginTimestamp);
                     }
-                });
+                }
             }
             try {
                 sendThreadPool.shutdown();
