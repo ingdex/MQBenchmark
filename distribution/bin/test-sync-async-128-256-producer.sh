@@ -121,7 +121,7 @@ else
   restartRocketMQ $originRocketMQPath
 fi
 
-testTarget="sync-$testTarget0"
+testTarget="async-$testTarget0"
 # sync producer
 # 外层循环遍历数字i，i的取值为8、16、32、64
 for i in 128 256; do
