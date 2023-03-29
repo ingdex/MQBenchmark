@@ -15,6 +15,7 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.consumer.rebalance.AllocateMessageQueueAveragely;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.MixAll;
+import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.filter.ExpressionType;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.remoting.RPCHook;
@@ -154,7 +155,7 @@ public class RMQConsumerPerf {
         consumer.setConsumeThreadMin(threadNum);
         consumer.setConsumeThreadMax(threadNum);
         consumer.setInstanceName(Long.toString(System.currentTimeMillis()) + instanceId);
-
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         if (filterType == null || expression == null) {
             consumer.subscribe(topic, "*");
         } else {
