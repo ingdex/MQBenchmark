@@ -22,6 +22,7 @@ import org.apache.rocketmq.remoting.protocol.RemotingCommand;
 import org.apache.rocketmq.remoting.protocol.SerializeType;
 import org.apache.rocketmq.srvutil.ServerUtil;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,12 +40,12 @@ import java.util.concurrent.atomic.LongAdder;
 
 public class RMQConsumerPerf {
 
-    public static void main(String[] args) throws MQClientException, IOException, InterruptedException {
-        System.setProperty(RemotingCommand.SERIALIZE_TYPE_PROPERTY, SerializeType.ROCKETMQ.name());
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         if (args.length != 2 || !args[0].equals("-c")) {
-            System.out.println("Usage: RMQProducerPerf -c CONFIG.json");
+            System.out.println("Usage: RMQConsumerPerf -c CONFIG.json");
             return;
         }
+        System.setProperty("rocketmq.client.logRoot","/root/clientLog");
         String path = args[1];
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(path));
@@ -53,18 +54,15 @@ public class RMQConsumerPerf {
         for (RMQConf conf: rmqConfs) {
             System.out.println(gson.toJson(conf));
         }
-        ExecutorService receiveThreadPool = Executors.newFixedThreadPool(rmqConfs.length);
-        final StatsBenchmarkConsumer statsBenchmarkConsumer = new StatsBenchmarkConsumer();
-
+        StatsBenchmarkConsumer statsBenchmark = new StatsBenchmarkConsumer();
+        ExecutorService consumeThreadPool = Executors.newFixedThreadPool(rmqConfs.length);
         ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
                 new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
-
         final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
-
         executorService.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                snapshotList.addLast(statsBenchmarkConsumer.createSnapshot());
+                snapshotList.addLast(statsBenchmark.createSnapshot());
                 if (snapshotList.size() > 10) {
                     snapshotList.removeFirst();
                 }
@@ -74,23 +72,7 @@ public class RMQConsumerPerf {
         executorService.scheduleAtFixedRate(new TimerTask() {
             private void printStats() {
                 if (snapshotList.size() >= 10) {
-                    Long[] begin = snapshotList.getFirst();
-                    Long[] end = snapshotList.getLast();
-
-                    final long consumeTps =
-                            (long) (((end[1] - begin[1]) / (double) (end[0] - begin[0])) * 1000L);
-                    final double averageB2CRT = (end[2] - begin[2]) / (double) (end[1] - begin[1]);
-                    final double averageS2CRT = (end[3] - begin[3]) / (double) (end[1] - begin[1]);
-                    final long failCount = end[4] - begin[4];
-                    final long b2cMax = statsBenchmarkConsumer.getBorn2ConsumerMaxRT().get();
-                    final long s2cMax = statsBenchmarkConsumer.getStore2ConsumerMaxRT().get();
-
-                    statsBenchmarkConsumer.getBorn2ConsumerMaxRT().set(0);
-                    statsBenchmarkConsumer.getStore2ConsumerMaxRT().set(0);
-
-                    System.out.printf("Current Time: %s TPS: %d FAIL: %d AVG(B2C) RT(ms): %7.3f AVG(S2C) RT(ms): %7.3f MAX(B2C) RT(ms): %d MAX(S2C) RT(ms): %d%n",
-                            System.currentTimeMillis(), consumeTps, failCount, averageB2CRT, averageS2CRT, b2cMax, s2cMax
-                    );
+                    doPrintStats(snapshotList,  statsBenchmark, false);
                 }
             }
 
@@ -109,38 +91,38 @@ public class RMQConsumerPerf {
             String[] subArgs = toArgs(conf);
             StringBuilder sb = new StringBuilder();
             for (String arg: subArgs) {
-                sb.append(arg + " ");
+                sb.append(arg).append(" ");
             }
             System.out.println("subArgs: " + sb.toString());
-//            String producerGroup = "producer_benchmark_" + i;
-            receiveThreadPool.execute(() -> {
+            String consumerGroup = "producer_benchmark_" + i;
+            int finalI = i;
+            consumeThreadPool.execute(() -> {
                 try {
-                    RMQConsumerPerf.start(subArgs, statsBenchmarkConsumer);
+                    RMQConsumerPerf rmqConsumerPerf = new RMQConsumerPerf();
+                    rmqConsumerPerf.start(subArgs, statsBenchmark, consumerGroup, finalI);
                 } catch (MQClientException | IOException e) {
                     throw new RuntimeException(e);
                 }
             });
         }
-        receiveThreadPool.shutdown();
-//        System.out.println("shutdown");
-        receiveThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-//        System.out.println("awaitTermination");
-//        executorService.shutdown();
-//        try {
-//            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
-//        } catch (InterruptedException e) {
-//        }
+        consumeThreadPool.shutdown();
+        consumeThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+        executorService.shutdown();
+        try {
+            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+        }
     }
 
-    private static void start(String[] subArgs, StatsBenchmarkConsumer statsBenchmarkConsumer) throws MQClientException, IOException {
+    private void start(String[] subArgs, StatsBenchmarkConsumer statsBenchmarkConsumer, String consumerGroup, int instanceId) throws MQClientException, IOException {
         Options options = ServerUtil.buildCommandlineOptions(new Options());
-        CommandLine commandLine = ServerUtil.parseCmdLine("benchmarkConsumer", subArgs, buildCommandlineOptions(options), new PosixParser());
+        CommandLine commandLine = ServerUtil.parseCmdLine("RMQConsumerPer", subArgs, buildCommandlineOptions(options), new PosixParser());
         if (null == commandLine) {
             System.exit(-1);
         }
 
         final String topic = commandLine.hasOption('t') ? commandLine.getOptionValue('t').trim() : "BenchmarkTest";
-        final int threadNum = commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 20;
+        final int threadNum = commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 1;
         final int topicCount = commandLine.hasOption("tc") ? Integer.parseInt(commandLine.getOptionValue("tc")) : 1;
         final String groupPrefix = commandLine.hasOption('g') ? commandLine.getOptionValue('g').trim() : "benchmark_consumer";
         final String isSuffixEnable = commandLine.hasOption('p') ? commandLine.getOptionValue('p').trim() : "false";
@@ -150,9 +132,9 @@ public class RMQConsumerPerf {
         final boolean msgTraceEnable = commandLine.hasOption('m') && Boolean.parseBoolean(commandLine.getOptionValue('m'));
         final boolean aclEnable = commandLine.hasOption('a') && Boolean.parseBoolean(commandLine.getOptionValue('a'));
 
-        String group = groupPrefix;
+        String group = consumerGroup;
         if (Boolean.parseBoolean(isSuffixEnable)) {
-            group = groupPrefix + "_" + (System.currentTimeMillis() % 100);
+            group = consumerGroup + "_" + (System.currentTimeMillis() % 100);
         }
 
         System.out.printf("topic: %s, threadCount %d, group: %s, suffix: %s, filterType: %s, expression: %s, msgTraceEnable: %s, aclEnable: %s%n",
@@ -171,7 +153,7 @@ public class RMQConsumerPerf {
         }
         consumer.setConsumeThreadMin(threadNum);
         consumer.setConsumeThreadMax(threadNum);
-        consumer.setInstanceName(Long.toString(System.currentTimeMillis()));
+        consumer.setInstanceName(Long.toString(System.currentTimeMillis()) + instanceId);
 
         if (filterType == null || expression == null) {
             consumer.subscribe(topic, "*");
@@ -332,6 +314,28 @@ public class RMQConsumerPerf {
             list.add(conf.nameServer);
         }
         return list.toArray(new String[0]);
+    }
+
+    private static void doPrintStats(final LinkedList<Long[]> snapshotList, final StatsBenchmarkConsumer statsBenchmarkConsumer, boolean done) {
+        if (snapshotList.size() >= 10) {
+            Long[] begin = snapshotList.getFirst();
+            Long[] end = snapshotList.getLast();
+
+            final long consumeTps =
+                    (long) (((end[1] - begin[1]) / (double) (end[0] - begin[0])) * 1000L);
+            final double averageB2CRT = (end[2] - begin[2]) / (double) (end[1] - begin[1]);
+            final double averageS2CRT = (end[3] - begin[3]) / (double) (end[1] - begin[1]);
+            final long failCount = end[4] - begin[4];
+            final long b2cMax = statsBenchmarkConsumer.getBorn2ConsumerMaxRT().get();
+            final long s2cMax = statsBenchmarkConsumer.getStore2ConsumerMaxRT().get();
+
+            statsBenchmarkConsumer.getBorn2ConsumerMaxRT().set(0);
+            statsBenchmarkConsumer.getStore2ConsumerMaxRT().set(0);
+
+            System.out.printf("Current Time: %s TPS: %d FAIL: %d AVG(B2C) RT(ms): %7.3f AVG(S2C) RT(ms): %7.3f MAX(B2C) RT(ms): %d MAX(S2C) RT(ms): %d%n",
+                    System.currentTimeMillis(), consumeTps, failCount, averageB2CRT, averageS2CRT, b2cMax, s2cMax
+            );
+        }
     }
 }
 
