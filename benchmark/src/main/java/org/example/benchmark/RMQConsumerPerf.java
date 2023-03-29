@@ -107,11 +107,11 @@ public class RMQConsumerPerf {
         }
         consumeThreadPool.shutdown();
         consumeThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
-        executorService.shutdown();
-        try {
-            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-        }
+//        executorService.shutdown();
+//        try {
+//            executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
+//        } catch (InterruptedException e) {
+//        }
     }
 
     private void start(String[] subArgs, StatsBenchmarkConsumer statsBenchmarkConsumer, String consumerGroup, int instanceId) throws MQClientException, IOException {

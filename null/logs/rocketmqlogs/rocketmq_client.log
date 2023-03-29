@@ -1,0 +1,156 @@
+2023-03-29 16:19:28,758 INFO RocketmqClient - the consumer [producer_benchmark_0] start beginning. messageModel=CLUSTERING, isUnitMode=false
+2023-03-29 16:19:28,886 DEBUG io.netty.util.internal.InternalThreadLocalMap - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+2023-03-29 16:19:28,886 DEBUG io.netty.util.internal.InternalThreadLocalMap - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+2023-03-29 16:19:28,931 DEBUG io.netty.util.internal.PlatformDependent0 - -Dio.netty.noUnsafe: false
+2023-03-29 16:19:28,931 DEBUG io.netty.util.internal.PlatformDependent0 - Java version: 8
+2023-03-29 16:19:28,932 DEBUG io.netty.util.internal.PlatformDependent0 - sun.misc.Unsafe.theUnsafe: available
+2023-03-29 16:19:28,933 DEBUG io.netty.util.internal.PlatformDependent0 - sun.misc.Unsafe.copyMemory: available
+2023-03-29 16:19:28,933 DEBUG io.netty.util.internal.PlatformDependent0 - java.nio.Buffer.address: available
+2023-03-29 16:19:28,934 DEBUG io.netty.util.internal.PlatformDependent0 - direct buffer constructor: available
+2023-03-29 16:19:28,934 DEBUG io.netty.util.internal.PlatformDependent0 - java.nio.Bits.unaligned: available, true
+2023-03-29 16:19:28,934 DEBUG io.netty.util.internal.PlatformDependent0 - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+2023-03-29 16:19:28,934 DEBUG io.netty.util.internal.PlatformDependent0 - java.nio.DirectByteBuffer.<init>(long, int): available
+2023-03-29 16:19:28,934 DEBUG io.netty.util.internal.PlatformDependent - sun.misc.Unsafe: available
+2023-03-29 16:19:28,935 DEBUG io.netty.util.internal.PlatformDependent - -Dio.netty.tmpdir: /var/folders/1v/dshq3bfs7wz0b66b6cp1p47c0000gn/T (java.io.tmpdir)
+2023-03-29 16:19:28,935 DEBUG io.netty.util.internal.PlatformDependent - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2023-03-29 16:19:28,936 DEBUG io.netty.util.internal.PlatformDependent - Platform: MacOS
+2023-03-29 16:19:28,936 DEBUG io.netty.util.internal.PlatformDependent - -Dio.netty.maxDirectMemory: 3817865216 bytes
+2023-03-29 16:19:28,936 DEBUG io.netty.util.internal.PlatformDependent - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+2023-03-29 16:19:28,937 DEBUG io.netty.util.internal.CleanerJava6 - java.nio.ByteBuffer.cleaner(): available
+2023-03-29 16:19:28,945 DEBUG io.netty.util.internal.PlatformDependent - org.jctools-core.MpscChunkedArrayQueue: available
+2023-03-29 16:19:28,953 INFO io.netty.channel.nio.NioEventLoop - instrumented a special java.util.Set into: sun.nio.ch.KQueueSelectorImpl@2a1eb778
+2023-03-29 16:19:28,955 INFO RocketmqRemoting - name server address updated. NEW : [192.168.0.181:9876] , OLD: null
+2023-03-29 16:19:28,955 INFO RocketmqClient - user specified name server address: 192.168.0.181:9876
+2023-03-29 16:19:28,987 INFO RocketmqClient - Created a new client Instance, InstanceIndex:0, ClientID:198.18.0.1@16800779687460, ClientConfig:ClientConfig [namesrvAddr=192.168.0.181:9876, clientIP=198.18.0.1, instanceName=16800779687460, clientCallbackExecutorThreads=8, pollNameServerInterval=30000, heartbeatBrokerInterval=30000, persistConsumerOffsetInterval=5000, pullTimeDelayMillsWhenException=1000, unitMode=false, unitName=null, vipChannelEnabled=false, useTLS=false, language=JAVA, namespace=null, mqClientApiTimeout=3000, enableStreamRequestType=false], ClientVersion:V4_9_4, SerializerType:JSON
+2023-03-29 16:19:28,987 INFO RocketmqClient - Created new MQClientInstance for clientId:[198.18.0.1@16800779687460]
+2023-03-29 16:19:29,004 INFO RocketmqCommon - Try to start service thread:PullMessageService started:false lastThread:null
+2023-03-29 16:19:29,004 INFO RocketmqCommon - Try to start service thread:RebalanceService started:false lastThread:null
+2023-03-29 16:19:29,004 INFO RocketmqClient - PullMessageService service started
+2023-03-29 16:19:29,005 INFO RocketmqClient - RebalanceService service started
+2023-03-29 16:19:29,006 INFO RocketmqClient - the producer [CLIENT_INNER_PRODUCER] start OK. sendMessageWithVIPChannel=false
+2023-03-29 16:19:29,009 INFO RocketmqClient - the client factory [198.18.0.1@16800779687460] start OK
+2023-03-29 16:19:29,009 INFO RocketmqClient - the consumer [producer_benchmark_0] start OK.
+2023-03-29 16:19:29,009 INFO RocketmqRemoting - new name server is chosen. OLD: null , NEW: 192.168.0.181:9876. namesrvIndex = 270
+2023-03-29 16:19:29,027 DEBUG io.netty.util.NetUtil - -Djava.net.preferIPv4Stack: false
+2023-03-29 16:19:29,028 DEBUG io.netty.util.NetUtil - -Djava.net.preferIPv6Addresses: false
+2023-03-29 16:19:29,029 DEBUG io.netty.util.NetUtilInitializations - Loopback interface: lo0 (lo0, 0:0:0:0:0:0:0:1%lo0)
+2023-03-29 16:19:29,030 DEBUG io.netty.util.NetUtil - Failed to get SOMAXCONN from sysctl and file /proc/sys/net/core/somaxconn. Default: 128
+2023-03-29 16:19:29,072 DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.allocator.type: pooled
+2023-03-29 16:19:29,072 DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.threadLocalDirectBufferSize: 0
+2023-03-29 16:19:29,072 DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+2023-03-29 16:19:29,101 INFO RocketmqRemoting - createChannel: begin to connect remote host[192.168.0.181:9876] asynchronously
+2023-03-29 16:19:29,121 INFO RocketmqRemoting - NETTY CLIENT PIPELINE: CONNECT  UNKNOWN => 192.168.0.181:9876
+2023-03-29 16:19:29,127 INFO RocketmqRemoting - createChannel: connect remote host[192.168.0.181:9876] success, AbstractBootstrap$PendingRegistrationPromise@23f8aa4a(success)
+2023-03-29 16:19:29,140 DEBUG io.netty.util.ResourceLeakDetectorFactory - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@4a6b4002
+2023-03-29 16:19:29,294 INFO RocketmqClient - the topic[%RETRY%producer_benchmark_0] route info changed, old[null] ,new[TopicRouteData [orderTopicConf=null, queueDatas=[QueueData [brokerName=broker-a, readQueueNums=1, writeQueueNums=1, perm=6, topicSysFlag=0]], brokerDatas=[BrokerData [brokerName=broker-a, brokerAddrs={0=192.168.0.200:10911}]], filterServerTable={}]]
+2023-03-29 16:19:29,295 INFO RocketmqClient - topicRouteTable.put. Topic = %RETRY%producer_benchmark_0, TopicRouteData[TopicRouteData [orderTopicConf=null, queueDatas=[QueueData [brokerName=broker-a, readQueueNums=1, writeQueueNums=1, perm=6, topicSysFlag=0]], brokerDatas=[BrokerData [brokerName=broker-a, brokerAddrs={0=192.168.0.200:10911}]], filterServerTable={}]]
+2023-03-29 16:19:29,301 INFO RocketmqClient - the topic[topic0] route info changed, old[null] ,new[TopicRouteData [orderTopicConf=null, queueDatas=[QueueData [brokerName=broker-a, readQueueNums=4, writeQueueNums=4, perm=6, topicSysFlag=0]], brokerDatas=[BrokerData [brokerName=broker-a, brokerAddrs={0=192.168.0.200:10911}]], filterServerTable={}]]
+2023-03-29 16:19:29,301 INFO RocketmqClient - topicRouteTable.put. Topic = topic0, TopicRouteData[TopicRouteData [orderTopicConf=null, queueDatas=[QueueData [brokerName=broker-a, readQueueNums=4, writeQueueNums=4, perm=6, topicSysFlag=0]], brokerDatas=[BrokerData [brokerName=broker-a, brokerAddrs={0=192.168.0.200:10911}]], filterServerTable={}]]
+2023-03-29 16:19:29,359 INFO RocketmqClient - the topic[TBW102] route info changed, old[null] ,new[TopicRouteData [orderTopicConf=null, queueDatas=[QueueData [brokerName=broker-a, readQueueNums=8, writeQueueNums=8, perm=7, topicSysFlag=0]], brokerDatas=[BrokerData [brokerName=broker-a, brokerAddrs={0=192.168.0.200:10911}]], filterServerTable={}]]
+2023-03-29 16:19:29,360 INFO RocketmqClient - updateTopicPublishInfo prev is not null, TopicPublishInfo [orderTopic=false, messageQueueList=[], sendWhichQueue=ThreadLocalIndex{threadLocalIndex=null}, haveTopicRouterInfo=false]
+2023-03-29 16:19:29,360 INFO RocketmqClient - topicRouteTable.put. Topic = TBW102, TopicRouteData[TopicRouteData [orderTopicConf=null, queueDatas=[QueueData [brokerName=broker-a, readQueueNums=8, writeQueueNums=8, perm=7, topicSysFlag=0]], brokerDatas=[BrokerData [brokerName=broker-a, brokerAddrs={0=192.168.0.200:10911}]], filterServerTable={}]]
+2023-03-29 16:19:29,365 INFO RocketmqRemoting - createChannel: begin to connect remote host[192.168.0.200:10911] asynchronously
+2023-03-29 16:19:29,367 INFO RocketmqRemoting - NETTY CLIENT PIPELINE: CONNECT  UNKNOWN => 192.168.0.200:10911
+2023-03-29 16:19:29,368 INFO RocketmqRemoting - createChannel: connect remote host[192.168.0.200:10911] success, AbstractBootstrap$PendingRegistrationPromise@1d8d8b35(success)
+2023-03-29 16:19:29,395 WARN io.netty.channel.DefaultChannelPipeline - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+java.lang.NullPointerException
+	at org.apache.rocketmq.remoting.netty.NettyRemotingAbstract.processRequestCommand(NettyRemotingAbstract.java:247)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingAbstract.processMessageReceived(NettyRemotingAbstract.java:158)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient$NettyClientHandler.channelRead0(NettyRemotingClient.java:639)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingClient$NettyClientHandler.channelRead0(NettyRemotingClient.java:635)
+	at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:286)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:324)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:311)
+	at io.netty.handler.codec.ByteToMessageDecoder.callDecode(ByteToMessageDecoder.java:432)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:276)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.access$600(AbstractChannelHandlerContext.java:61)
+	at io.netty.channel.AbstractChannelHandlerContext$7.run(AbstractChannelHandlerContext.java:370)
+	at io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:66)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:989)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at java.lang.Thread.run(Thread.java:748)
+
+2023-03-29 16:19:29,396 INFO RocketmqClient - send heart beat to broker[broker-a 0 192.168.0.200:10911] success
+2023-03-29 16:19:29,396 INFO RocketmqClient - HeartbeatData [clientID=198.18.0.1@16800779687460, producerDataSet=[ProducerData [groupName=CLIENT_INNER_PRODUCER]], consumerDataSet=[ConsumerData [groupName=producer_benchmark_0, consumeType=CONSUME_PASSIVELY, messageModel=CLUSTERING, consumeFromWhere=CONSUME_FROM_LAST_OFFSET, unitMode=false, subscriptionDataSet=[SubscriptionData [classFilterMode=false, topic=%RETRY%producer_benchmark_0, subString=*, tagsSet=[], codeSet=[], subVersion=1680077968775, expressionType=TAG], SubscriptionData [classFilterMode=false, topic=topic0, subString=*, tagsSet=[], codeSet=[], subVersion=1680077968753, expressionType=TAG]]]]]
+2023-03-29 16:19:29,423 INFO RocketmqClient - remove unnecessary messageQueue offset. group=producer_benchmark_0, mq=MessageQueue [topic=%RETRY%producer_benchmark_0, brokerName=broker-a, queueId=0], offsetTableSize=0
+2023-03-29 16:19:29,433 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new mq, MessageQueue [topic=%RETRY%producer_benchmark_0, brokerName=broker-a, queueId=0]
+2023-03-29 16:19:29,434 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new pull request PullRequest [consumerGroup=producer_benchmark_0, messageQueue=MessageQueue [topic=%RETRY%producer_benchmark_0, brokerName=broker-a, queueId=0], nextOffset=0]
+2023-03-29 16:19:29,434 INFO RocketmqClient - rebalanced result changed. allocateMessageQueueStrategyName=AVG, group=producer_benchmark_0, topic=%RETRY%producer_benchmark_0, clientId=198.18.0.1@16800779687460, mqAllSize=1, cidAllSize=1, rebalanceResultSize=1, rebalanceResultSet=[MessageQueue [topic=%RETRY%producer_benchmark_0, brokerName=broker-a, queueId=0]]
+2023-03-29 16:19:29,434 INFO RocketmqClient - %RETRY%producer_benchmark_0 Rebalance changed, also update version: 1680077968775, 1680077969434
+2023-03-29 16:19:29,457 INFO RocketmqClient - remove unnecessary messageQueue offset. group=producer_benchmark_0, mq=MessageQueue [topic=topic0, brokerName=broker-a, queueId=0], offsetTableSize=1
+2023-03-29 16:19:29,464 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new mq, MessageQueue [topic=topic0, brokerName=broker-a, queueId=0]
+2023-03-29 16:19:29,465 INFO RocketmqClient - remove unnecessary messageQueue offset. group=producer_benchmark_0, mq=MessageQueue [topic=topic0, brokerName=broker-a, queueId=1], offsetTableSize=2
+2023-03-29 16:19:29,471 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new mq, MessageQueue [topic=topic0, brokerName=broker-a, queueId=1]
+2023-03-29 16:19:29,471 INFO RocketmqClient - remove unnecessary messageQueue offset. group=producer_benchmark_0, mq=MessageQueue [topic=topic0, brokerName=broker-a, queueId=2], offsetTableSize=3
+2023-03-29 16:19:29,479 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new mq, MessageQueue [topic=topic0, brokerName=broker-a, queueId=2]
+2023-03-29 16:19:29,479 INFO RocketmqClient - remove unnecessary messageQueue offset. group=producer_benchmark_0, mq=MessageQueue [topic=topic0, brokerName=broker-a, queueId=3], offsetTableSize=4
+2023-03-29 16:19:29,486 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new mq, MessageQueue [topic=topic0, brokerName=broker-a, queueId=3]
+2023-03-29 16:19:29,486 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new pull request PullRequest [consumerGroup=producer_benchmark_0, messageQueue=MessageQueue [topic=topic0, brokerName=broker-a, queueId=0], nextOffset=104879]
+2023-03-29 16:19:29,486 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new pull request PullRequest [consumerGroup=producer_benchmark_0, messageQueue=MessageQueue [topic=topic0, brokerName=broker-a, queueId=1], nextOffset=104879]
+2023-03-29 16:19:29,486 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new pull request PullRequest [consumerGroup=producer_benchmark_0, messageQueue=MessageQueue [topic=topic0, brokerName=broker-a, queueId=2], nextOffset=104883]
+2023-03-29 16:19:29,486 INFO RocketmqClient - doRebalance, producer_benchmark_0, add a new pull request PullRequest [consumerGroup=producer_benchmark_0, messageQueue=MessageQueue [topic=topic0, brokerName=broker-a, queueId=3], nextOffset=104863]
+2023-03-29 16:19:29,486 INFO RocketmqClient - rebalanced result changed. allocateMessageQueueStrategyName=AVG, group=producer_benchmark_0, topic=topic0, clientId=198.18.0.1@16800779687460, mqAllSize=4, cidAllSize=1, rebalanceResultSize=4, rebalanceResultSet=[MessageQueue [topic=topic0, brokerName=broker-a, queueId=0], MessageQueue [topic=topic0, brokerName=broker-a, queueId=1], MessageQueue [topic=topic0, brokerName=broker-a, queueId=2], MessageQueue [topic=topic0, brokerName=broker-a, queueId=3]]
+2023-03-29 16:19:29,486 INFO RocketmqClient - topic0 Rebalance changed, also update version: 1680077968753, 1680077969486
+2023-03-29 16:19:29,500 WARN RocketmqClient - execute the pull request exception
+org.apache.rocketmq.client.exception.MQBrokerException: CODE: 25  DESC: the consumer's subscription not latest BROKER: 192.168.0.200:10911
+For more information, please visit the url, http://rocketmq.apache.org/docs/faq/
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.processPullResponse(MQClientAPIImpl.java:803)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.access$200(MQClientAPIImpl.java:175)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl$2.operationComplete(MQClientAPIImpl.java:754)
+	at org.apache.rocketmq.remoting.netty.ResponseFuture.executeInvokeCallback(ResponseFuture.java:54)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingAbstract$2.run(NettyRemotingAbstract.java:321)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+2023-03-29 16:19:29,500 WARN RocketmqClient - execute the pull request exception
+org.apache.rocketmq.client.exception.MQBrokerException: CODE: 25  DESC: the consumer's subscription not latest BROKER: 192.168.0.200:10911
+For more information, please visit the url, http://rocketmq.apache.org/docs/faq/
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.processPullResponse(MQClientAPIImpl.java:803)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.access$200(MQClientAPIImpl.java:175)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl$2.operationComplete(MQClientAPIImpl.java:754)
+	at org.apache.rocketmq.remoting.netty.ResponseFuture.executeInvokeCallback(ResponseFuture.java:54)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingAbstract$2.run(NettyRemotingAbstract.java:321)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+2023-03-29 16:19:29,502 WARN RocketmqClient - execute the pull request exception
+org.apache.rocketmq.client.exception.MQBrokerException: CODE: 25  DESC: the consumer's subscription not latest BROKER: 192.168.0.200:10911
+For more information, please visit the url, http://rocketmq.apache.org/docs/faq/
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.processPullResponse(MQClientAPIImpl.java:803)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl.access$200(MQClientAPIImpl.java:175)
+	at org.apache.rocketmq.client.impl.MQClientAPIImpl$2.operationComplete(MQClientAPIImpl.java:754)
+	at org.apache.rocketmq.remoting.netty.ResponseFuture.executeInvokeCallback(ResponseFuture.java:54)
+	at org.apache.rocketmq.remoting.netty.NettyRemotingAbstract$2.run(NettyRemotingAbstract.java:321)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+2023-03-29 16:19:39,014 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=0] 104879
+2023-03-29 16:19:39,014 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=1] 104879
+2023-03-29 16:19:39,015 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=%RETRY%producer_benchmark_0, brokerName=broker-a, queueId=0] 0
+2023-03-29 16:19:39,015 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=2] 104883
+2023-03-29 16:19:39,015 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=3] 104863
+2023-03-29 16:19:44,007 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=0] 104879
+2023-03-29 16:19:44,008 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=1] 104879
+2023-03-29 16:19:44,008 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=%RETRY%producer_benchmark_0, brokerName=broker-a, queueId=0] 0
+2023-03-29 16:19:44,008 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=2] 104883
+2023-03-29 16:19:44,008 INFO RocketmqClient - [persistAll] Group: producer_benchmark_0 ClientId: 198.18.0.1@16800779687460 updateConsumeOffsetToBroker MessageQueue [topic=topic0, brokerName=broker-a, queueId=3] 104863
