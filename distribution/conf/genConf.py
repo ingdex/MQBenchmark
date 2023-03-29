@@ -1,14 +1,14 @@
 import json
 
 # 设置topic的数量
-numTopics = [8, 16, 32, 64, 128, 256]
+numTopics = [8, 16, 32]
 messageSize = [1024, 4096, 8192, 16384, 32768, 65536, 131072, 1048488]
-asyncEnable = [True, False]
+asyncEnable = [True]
 
 def do_gen_conf(num_topics, message_size, async_enable):
     # 生成JSON数据
     json_data = []
-    filename = "kafka-{}-1-{}".format(num_topics, message_size)
+    filename = "rmqConsumer-{}-1-{}".format(num_topics, message_size)
     if not async_enable:
         filename = filename + "-sync.json"
     else:
@@ -16,15 +16,25 @@ def do_gen_conf(num_topics, message_size, async_enable):
 
     for i in range(num_topics):
         topic = "topic{}".format(i)
+        # Kafka consumer
         data = {
             "topic": topic,
-            "topicNum": 1,
-            "messageNum": 0,
-            "messageSize": message_size,
-            "producerProps": ["bootstrap.servers=192.168.0.200:9092", "batch.size={}".format(message_size)],
             "threadNum": 1,
-            "asyncEnable": async_enable
+            "nameServer": "192.168.0.181:9876"
         }
+
+        # Kafka producer
+        # data = {
+        #     "topic": topic,
+        #     "topicNum": 1,
+        #     "messageNum": 0,
+        #     "messageSize": message_size,
+        #     "producerProps": ["bootstrap.servers=192.168.0.200:9092", "batch.size={}".format(message_size)],
+        #     "threadNum": 1,
+        #     "asyncEnable": async_enable
+        # }
+
+        # rmq producer
         # data = {
         #     "topic": topic,
         #     "topicCount": 1,
