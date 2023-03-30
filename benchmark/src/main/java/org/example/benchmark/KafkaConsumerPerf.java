@@ -7,6 +7,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.MessageSelector;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -19,16 +20,16 @@ import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.filter.ExpressionType;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.remoting.RPCHook;
-import org.apache.rocketmq.remoting.protocol.RemotingCommand;
-import org.apache.rocketmq.remoting.protocol.SerializeType;
 import org.apache.rocketmq.srvutil.ServerUtil;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,26 +38,24 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.LongAdder;
 
-public class RMQConsumerPerf {
-
+public class KafkaConsumerPerf {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
         if (args.length != 2 || !args[0].equals("-c")) {
-            System.out.println("Usage: RMQConsumerPerf -c CONFIG.json");
+            System.out.println("Usage: KafkaConsumerPerf -c CONFIG.json");
             return;
         }
-        System.setProperty("rocketmq.client.logRoot","/root/clientLog");
+//        System.setProperty("rocketmq.client.logRoot","/root/clientLog");
         String path = args[1];
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(path));
-        RMQConf[] rmqConfs = gson.fromJson(reader, RMQConf[].class);
-        System.out.println("Found " + rmqConfs.length + " rmqConf:");
-        for (RMQConf conf: rmqConfs) {
+        KafkaConf[] kafkaConfs = gson.fromJson(reader, KafkaConf[].class);
+        System.out.println("Found " + kafkaConfs.length + " kafkaConfs:");
+        for (KafkaConf conf: kafkaConfs) {
             System.out.println(gson.toJson(conf));
         }
         StatsBenchmarkConsumer statsBenchmark = new StatsBenchmarkConsumer();
-        ExecutorService consumeThreadPool = Executors.newFixedThreadPool(rmqConfs.length);
+        ExecutorService consumeThreadPool = Executors.newFixedThreadPool(kafkaConfs.length);
         ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
                 new BasicThreadFactory.Builder().namingPattern("BenchmarkTimerThread-%d").daemon(true).build());
         final LinkedList<Long[]> snapshotList = new LinkedList<Long[]>();
@@ -87,8 +86,8 @@ public class RMQConsumerPerf {
             }
         }, 10000, 10000, TimeUnit.MILLISECONDS);
 
-        for (int i=0; i<rmqConfs.length; i++) {
-            RMQConf conf = rmqConfs[i];
+        for (int i=0; i<kafkaConfs.length; i++) {
+            KafkaConf conf = kafkaConfs[i];
             String[] subArgs = toArgs(conf);
             StringBuilder sb = new StringBuilder();
             for (String arg: subArgs) {
@@ -99,8 +98,8 @@ public class RMQConsumerPerf {
             int finalI = i;
             consumeThreadPool.execute(() -> {
                 try {
-                    RMQConsumerPerf rmqConsumerPerf = new RMQConsumerPerf();
-                    rmqConsumerPerf.start(subArgs, statsBenchmark, consumerGroup, finalI);
+                    KafkaConsumerPerf kafkaConsumerPerf = new KafkaConsumerPerf();
+                    kafkaConsumerPerf.start(subArgs, statsBenchmark, consumerGroup, finalI);
                 } catch (MQClientException | IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -117,94 +116,94 @@ public class RMQConsumerPerf {
 
     private void start(String[] subArgs, StatsBenchmarkConsumer statsBenchmarkConsumer, String consumerGroup, int instanceId) throws MQClientException, IOException {
         Options options = ServerUtil.buildCommandlineOptions(new Options());
-        CommandLine commandLine = ServerUtil.parseCmdLine("RMQConsumerPer", subArgs, buildCommandlineOptions(options), new PosixParser());
+        CommandLine commandLine = ServerUtil.parseCmdLine("KafkaConsumerPerf", subArgs, buildCommandlineOptions(options), new PosixParser());
         if (null == commandLine) {
             System.exit(-1);
         }
 
         final String topic = commandLine.hasOption('t') ? commandLine.getOptionValue('t').trim() : "BenchmarkTest";
         final int threadNum = commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 1;
-        final int topicCount = commandLine.hasOption("tc") ? Integer.parseInt(commandLine.getOptionValue("tc")) : 1;
-        final String groupPrefix = commandLine.hasOption('g') ? commandLine.getOptionValue('g').trim() : "benchmark_consumer";
-        final String isSuffixEnable = commandLine.hasOption('p') ? commandLine.getOptionValue('p').trim() : "false";
-        final String filterType = commandLine.hasOption('f') ? commandLine.getOptionValue('f').trim() : null;
-        final String expression = commandLine.hasOption('e') ? commandLine.getOptionValue('e').trim() : null;
-        final double failRate = commandLine.hasOption('r') ? Double.parseDouble(commandLine.getOptionValue('r').trim()) : 0.0;
-        final boolean msgTraceEnable = commandLine.hasOption('m') && Boolean.parseBoolean(commandLine.getOptionValue('m'));
-        final boolean aclEnable = commandLine.hasOption('a') && Boolean.parseBoolean(commandLine.getOptionValue('a'));
+        final String bootstrapServer = commandLine.hasOption('b') ? commandLine.getOptionValue('b').trim() : null;
 
-        String group = consumerGroup;
-        if (Boolean.parseBoolean(isSuffixEnable)) {
-            group = consumerGroup + "_" + (System.currentTimeMillis() % 100);
+
+        System.out.printf("topic: %s, threadNum %d, group: %s\n",
+                topic, threadNum, consumerGroup);
+
+//        RPCHook rpcHook = null;
+//        if (aclEnable) {
+//            String ak = commandLine.hasOption("ak") ? String.valueOf(commandLine.getOptionValue("ak")) : AclClient.ACL_ACCESS_KEY;
+//            String sk = commandLine.hasOption("sk") ? String.valueOf(commandLine.getOptionValue("sk")) : AclClient.ACL_SECRET_KEY;
+//            rpcHook = AclClient.getAclRPCHook(ak, sk);
+//        }
+//        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(group, rpcHook, new AllocateMessageQueueAveragely(), msgTraceEnable, null);
+//        if (commandLine.hasOption('n')) {
+//            String ns = commandLine.getOptionValue('n');
+//            consumer.setNamesrvAddr(ns);
+//        }
+//        consumer.setConsumeThreadMin(threadNum);
+//        consumer.setConsumeThreadMax(threadNum);
+//        consumer.setInstanceName(Long.toString(System.currentTimeMillis()) + instanceId);
+//        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_TIMESTAMP);
+//
+//        if (filterType == null || expression == null) {
+//            consumer.subscribe(topic, "*");
+//        } else {
+//            if (ExpressionType.TAG.equals(filterType)) {
+//                String expr = MixAll.file2String(expression);
+//                System.out.printf("Expression: %s%n", expr);
+//                consumer.subscribe(topic, MessageSelector.byTag(expr));
+//            } else if (ExpressionType.SQL92.equals(filterType)) {
+//                String expr = MixAll.file2String(expression);
+//                System.out.printf("Expression: %s%n", expr);
+//                consumer.subscribe(topic, MessageSelector.bySql(expr));
+//            } else {
+//                throw new IllegalArgumentException("Not support filter type! " + filterType);
+//            }
+//        }
+
+//        consumer.registerMessageListener(new MessageListenerConcurrently() {
+//            @Override
+//            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
+//                                                            ConsumeConcurrentlyContext context) {
+////                System.out.println("receive msg");
+//                MessageExt msg = msgs.get(0);
+//                long now = System.currentTimeMillis();
+//
+//                statsBenchmarkConsumer.getReceiveMessageTotalCount().increment();
+//
+//                long born2ConsumerRT = now - msg.getBornTimestamp();
+//                statsBenchmarkConsumer.getBorn2ConsumerTotalRT().add(born2ConsumerRT);
+//
+//                long store2ConsumerRT = now - msg.getStoreTimestamp();
+//                statsBenchmarkConsumer.getStore2ConsumerTotalRT().add(store2ConsumerRT);
+//
+//                compareAndSetMax(statsBenchmarkConsumer.getBorn2ConsumerMaxRT(), born2ConsumerRT);
+//
+//                compareAndSetMax(statsBenchmarkConsumer.getStore2ConsumerMaxRT(), store2ConsumerRT);
+//
+//                if (ThreadLocalRandom.current().nextDouble() < failRate) {
+//                    statsBenchmarkConsumer.getFailCount().increment();
+//                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+//                } else {
+//                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+//                }
+//            }
+//        });
+//
+//        consumer.start();
+
+        Properties config = new Properties();
+        config.put("client.id", InetAddress.getLocalHost().getHostName() + instanceId);
+        config.put("group.id", consumerGroup);
+        if (bootstrapServer == null) {
+            System.out.println("need bootstrap.servers");
+            return;
         }
+        config.put("bootstrap.servers", bootstrapServer);
+        KafkaConsumer<byte[], byte[]> consumer = new KafkaConsumer<>(config);
 
-        System.out.printf("topic: %s, threadCount %d, group: %s, suffix: %s, filterType: %s, expression: %s, msgTraceEnable: %s, aclEnable: %s%n",
-                topic, threadNum, group, isSuffixEnable, filterType, expression, msgTraceEnable, aclEnable);
 
-        RPCHook rpcHook = null;
-        if (aclEnable) {
-            String ak = commandLine.hasOption("ak") ? String.valueOf(commandLine.getOptionValue("ak")) : AclClient.ACL_ACCESS_KEY;
-            String sk = commandLine.hasOption("sk") ? String.valueOf(commandLine.getOptionValue("sk")) : AclClient.ACL_SECRET_KEY;
-            rpcHook = AclClient.getAclRPCHook(ak, sk);
-        }
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(group, rpcHook, new AllocateMessageQueueAveragely(), msgTraceEnable, null);
-        if (commandLine.hasOption('n')) {
-            String ns = commandLine.getOptionValue('n');
-            consumer.setNamesrvAddr(ns);
-        }
-        consumer.setConsumeThreadMin(threadNum);
-        consumer.setConsumeThreadMax(threadNum);
-        consumer.setInstanceName(Long.toString(System.currentTimeMillis()) + instanceId);
-        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_TIMESTAMP);
-
-        if (filterType == null || expression == null) {
-            consumer.subscribe(topic, "*");
-        } else {
-            if (ExpressionType.TAG.equals(filterType)) {
-                String expr = MixAll.file2String(expression);
-                System.out.printf("Expression: %s%n", expr);
-                consumer.subscribe(topic, MessageSelector.byTag(expr));
-            } else if (ExpressionType.SQL92.equals(filterType)) {
-                String expr = MixAll.file2String(expression);
-                System.out.printf("Expression: %s%n", expr);
-                consumer.subscribe(topic, MessageSelector.bySql(expr));
-            } else {
-                throw new IllegalArgumentException("Not support filter type! " + filterType);
-            }
-        }
-
-        consumer.registerMessageListener(new MessageListenerConcurrently() {
-            @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                                                            ConsumeConcurrentlyContext context) {
-//                System.out.println("receive msg");
-                MessageExt msg = msgs.get(0);
-                long now = System.currentTimeMillis();
-
-                statsBenchmarkConsumer.getReceiveMessageTotalCount().increment();
-
-                long born2ConsumerRT = now - msg.getBornTimestamp();
-                statsBenchmarkConsumer.getBorn2ConsumerTotalRT().add(born2ConsumerRT);
-
-                long store2ConsumerRT = now - msg.getStoreTimestamp();
-                statsBenchmarkConsumer.getStore2ConsumerTotalRT().add(store2ConsumerRT);
-
-                compareAndSetMax(statsBenchmarkConsumer.getBorn2ConsumerMaxRT(), born2ConsumerRT);
-
-                compareAndSetMax(statsBenchmarkConsumer.getStore2ConsumerMaxRT(), store2ConsumerRT);
-
-                if (ThreadLocalRandom.current().nextDouble() < failRate) {
-                    statsBenchmarkConsumer.getFailCount().increment();
-                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
-                } else {
-                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-                }
-            }
-        });
-
-        consumer.start();
-
-        System.out.printf("Consumer Started.%n");
+        System.out.print("Consumer Started.");
     }
 
     public static Options buildCommandlineOptions(final Options options) {
@@ -269,51 +268,39 @@ public class RMQConsumerPerf {
         }
     }
 
-    private static String[] toArgs(RMQConf conf) {
+    private static String[] toArgs(KafkaConf conf) {
         List<String> list = new ArrayList<>();
         if (conf.topic != null) {
-            list.add("-t");
+            list.add("--topic");
             list.add(conf.topic);
         }
-        if (conf.topicCount != null) {
-            list.add("-tc");
-            list.add(conf.topicCount.toString());
+        if (conf.topicNum != null) {
+            list.add("--topic-nums");
+            list.add(conf.topicNum.toString());
+        }
+        if (conf.messageNum != null) {
+            list.add("-n");
+            list.add(conf.messageNum.toString());
+        }
+        if (conf.messageSize != null) {
+            list.add("-s");
+            list.add(conf.messageSize.toString());
+        }
+        if (conf.producerProps != null) {
+            list.add("--producer-props");
+            list.addAll(conf.producerProps);
+        }
+        if (conf.producerConfig != null) {
+            list.add("--producer.config");
+            list.add(conf.producerConfig.toString());
         }
         if (conf.threadNum != null) {
             list.add("-w");
             list.add(conf.threadNum.toString());
         }
-        if (conf.groupPrefix != null) {
-            list.add("-g");
-            list.add(conf.groupPrefix.toString());
-        }
-        if (conf.isSuffixEnable != null) {
-            list.add("-p");
-            list.add(conf.isSuffixEnable.toString());
-        }
-        if (conf.filterType != null) {
-            list.add("-f");
-            list.add(conf.filterType.toString());
-        }
-        if (conf.expression != null) {
-            list.add("-e");
-            list.add(conf.expression.toString());
-        }
-        if (conf.failRate != null) {
-            list.add("-r");
-            list.add(conf.failRate.toString());
-        }
-        if (conf.msgTraceEnable != null) {
-            list.add("-m");
-            list.add(conf.msgTraceEnable.toString());
-        }
-        if (conf.aclEnable != null) {
-            list.add("-a");
-            list.add(conf.aclEnable.toString());
-        }
-        if (conf.nameServer != null) {
-            list.add("-n");
-            list.add(conf.nameServer);
+        if (conf.asyncEnable != null) {
+            list.add("--asyncEnable");
+            list.add(conf.asyncEnable.toString());
         }
         return list.toArray(new String[0]);
     }
