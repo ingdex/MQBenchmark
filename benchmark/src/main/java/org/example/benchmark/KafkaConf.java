@@ -15,4 +15,5 @@ public class KafkaConf {
     Long transactionDurationMs ;
     Integer threadNum;
     Boolean asyncEnable;
+    String bootstrapServer;
 }

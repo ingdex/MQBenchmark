@@ -7,6 +7,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.MessageSelector;
@@ -26,7 +27,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -129,69 +132,6 @@ public class KafkaConsumerPerf {
         System.out.printf("topic: %s, threadNum %d, group: %s\n",
                 topic, threadNum, consumerGroup);
 
-//        RPCHook rpcHook = null;
-//        if (aclEnable) {
-//            String ak = commandLine.hasOption("ak") ? String.valueOf(commandLine.getOptionValue("ak")) : AclClient.ACL_ACCESS_KEY;
-//            String sk = commandLine.hasOption("sk") ? String.valueOf(commandLine.getOptionValue("sk")) : AclClient.ACL_SECRET_KEY;
-//            rpcHook = AclClient.getAclRPCHook(ak, sk);
-//        }
-//        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(group, rpcHook, new AllocateMessageQueueAveragely(), msgTraceEnable, null);
-//        if (commandLine.hasOption('n')) {
-//            String ns = commandLine.getOptionValue('n');
-//            consumer.setNamesrvAddr(ns);
-//        }
-//        consumer.setConsumeThreadMin(threadNum);
-//        consumer.setConsumeThreadMax(threadNum);
-//        consumer.setInstanceName(Long.toString(System.currentTimeMillis()) + instanceId);
-//        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_TIMESTAMP);
-//
-//        if (filterType == null || expression == null) {
-//            consumer.subscribe(topic, "*");
-//        } else {
-//            if (ExpressionType.TAG.equals(filterType)) {
-//                String expr = MixAll.file2String(expression);
-//                System.out.printf("Expression: %s%n", expr);
-//                consumer.subscribe(topic, MessageSelector.byTag(expr));
-//            } else if (ExpressionType.SQL92.equals(filterType)) {
-//                String expr = MixAll.file2String(expression);
-//                System.out.printf("Expression: %s%n", expr);
-//                consumer.subscribe(topic, MessageSelector.bySql(expr));
-//            } else {
-//                throw new IllegalArgumentException("Not support filter type! " + filterType);
-//            }
-//        }
-
-//        consumer.registerMessageListener(new MessageListenerConcurrently() {
-//            @Override
-//            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-//                                                            ConsumeConcurrentlyContext context) {
-////                System.out.println("receive msg");
-//                MessageExt msg = msgs.get(0);
-//                long now = System.currentTimeMillis();
-//
-//                statsBenchmarkConsumer.getReceiveMessageTotalCount().increment();
-//
-//                long born2ConsumerRT = now - msg.getBornTimestamp();
-//                statsBenchmarkConsumer.getBorn2ConsumerTotalRT().add(born2ConsumerRT);
-//
-//                long store2ConsumerRT = now - msg.getStoreTimestamp();
-//                statsBenchmarkConsumer.getStore2ConsumerTotalRT().add(store2ConsumerRT);
-//
-//                compareAndSetMax(statsBenchmarkConsumer.getBorn2ConsumerMaxRT(), born2ConsumerRT);
-//
-//                compareAndSetMax(statsBenchmarkConsumer.getStore2ConsumerMaxRT(), store2ConsumerRT);
-//
-//                if (ThreadLocalRandom.current().nextDouble() < failRate) {
-//                    statsBenchmarkConsumer.getFailCount().increment();
-//                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
-//                } else {
-//                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-//                }
-//            }
-//        });
-//
-//        consumer.start();
-
         Properties config = new Properties();
         config.put("client.id", InetAddress.getLocalHost().getHostName() + instanceId);
         config.put("group.id", consumerGroup);
@@ -201,9 +141,27 @@ public class KafkaConsumerPerf {
         }
         config.put("bootstrap.servers", bootstrapServer);
         KafkaConsumer<byte[], byte[]> consumer = new KafkaConsumer<>(config);
-
-
+        consumer.subscribe(Arrays.asList(topic));
         System.out.print("Consumer Started.");
+        while (true) {
+            Duration duration = Duration.ofMillis(1000);
+            ConsumerRecords<byte[], byte[]> records = consumer.poll(duration);
+            records.forEach(record -> {
+                long now = System.currentTimeMillis();
+
+                statsBenchmarkConsumer.getReceiveMessageTotalCount().increment();
+
+                long born2ConsumerRT = 0;
+                statsBenchmarkConsumer.getBorn2ConsumerTotalRT().add(born2ConsumerRT);
+
+                long store2ConsumerRT = 0;
+                statsBenchmarkConsumer.getStore2ConsumerTotalRT().add(store2ConsumerRT);
+
+                compareAndSetMax(statsBenchmarkConsumer.getBorn2ConsumerMaxRT(), born2ConsumerRT);
+
+                compareAndSetMax(statsBenchmarkConsumer.getStore2ConsumerMaxRT(), store2ConsumerRT);
+            });
+        }
     }
 
     public static Options buildCommandlineOptions(final Options options) {
@@ -254,6 +212,10 @@ public class KafkaConsumerPerf {
         opt.setRequired(false);
         options.addOption(opt);
 
+        opt = new Option("b", "bootstrapServer", true, "Kafka bootstrapServer");
+        opt.setRequired(true);
+        options.addOption(opt);
+
         return options;
     }
 
@@ -301,6 +263,10 @@ public class KafkaConsumerPerf {
         if (conf.asyncEnable != null) {
             list.add("--asyncEnable");
             list.add(conf.asyncEnable.toString());
+        }
+        if (conf.bootstrapServer != null) {
+            list.add("-b");
+            list.add(conf.bootstrapServer.toString());
         }
         return list.toArray(new String[0]);
     }

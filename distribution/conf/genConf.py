@@ -17,11 +17,16 @@ def do_gen_conf(num_topics, message_size, async_enable):
 
     for i in range(num_topics):
         topic = "topic{}".format(i)
-        # Kafka consumer
+        # rmq consumer
+        # data = {
+        #     "topic": topic,
+        #     "threadNum": 1,
+        #     "nameServer": "192.168.0.181:9876"
+        # }
+        # kafka consumer
         data = {
             "topic": topic,
-            "threadNum": 1,
-            "nameServer": "192.168.0.181:9876"
+            "bootstrapServer": "192.168.0.200:9092"
         }
 
         # Kafka producer
