@@ -142,9 +142,10 @@ public class KafkaConsumerPerf {
         config.put("bootstrap.servers", bootstrapServer);
         config.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
         config.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+        config.put("auto.offset.reset", "earliest");
         KafkaConsumer<byte[], byte[]> consumer = new KafkaConsumer<>(config);
         consumer.subscribe(Arrays.asList(topic));
-        System.out.print("Consumer Started.");
+        System.out.println("Consumer Started.");
         while (true) {
             Duration duration = Duration.ofMillis(1000);
             ConsumerRecords<byte[], byte[]> records = consumer.poll(duration);
