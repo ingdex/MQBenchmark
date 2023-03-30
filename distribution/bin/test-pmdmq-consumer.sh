@@ -1,6 +1,6 @@
 #!/bin/bash
 
-msgSize=(1024 4096 8192 16384 32768 65536 131072 1048576)
+#msgSize=(1024 4096 8192 16384 32768 65536 131072 1048576)
 rootPath=$(pwd)
 filename="$rootPath/result-pmdmq-consumer.txt"
 
@@ -66,7 +66,7 @@ produceEnoughMsg() {
   done
 }
 
-for size in ${msgSize[@]}
+for size in 1024 4096 8192 16384 32768 65536 131072 1048576;
 do
   restartRocketMQ
   echo -e "\n$size\n" >> $filename

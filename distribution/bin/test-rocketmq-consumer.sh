@@ -1,8 +1,8 @@
 #!/bin/bash
 
-msgSize=(1024 4096 8192 16384 32768 65536 131072 1048576)
-rootPath=$(pwd)
-filename="$rootPath/result-rocketmq-consumer.txt"
+#export msgSize=(1024 4096 8192 16384 32768 65536 131072 1048576)
+export rootPath=$(pwd)
+export filename="$rootPath/result-rocketmq-consumer.txt"
 
 export RocketMQPath="/root/rocketmq-4.9.4"
 export RocketMQLogDir="/root/data"
@@ -66,7 +66,7 @@ produceEnoughMsg() {
   done
 }
 
-for size in ${msgSize[@]}
+for size in 1024 4096 8192 16384 32768 65536 131072 1048576;
 do
   restartRocketMQ
   echo -e "\n$size\n" >> $filename
