@@ -140,6 +140,8 @@ public class KafkaConsumerPerf {
             return;
         }
         config.put("bootstrap.servers", bootstrapServer);
+        config.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
+        config.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<byte[], byte[]> consumer = new KafkaConsumer<>(config);
         consumer.subscribe(Arrays.asList(topic));
         System.out.print("Consumer Started.");
