@@ -1,8 +1,8 @@
 #!/bin/bash
 
-msgSize=[1024 4096 8192 16384 32768 65536 131072 1048576]
+msgSize=(1024 4096 8192 16384 32768 65536 131072 1048576)
 rootPath=$(pwd)
-filename="$rootPath/result-kafka-consumer"
+filename="$rootPath/result-kafka-consumer.txt"
 
 export KafkaPath="/root/kafka_2.13-3.3.1-modify"
 export KafkaLogDir="/root/data"
@@ -72,11 +72,11 @@ produceEnoughMsg() {
 for size in ${msgSize[@]}
 do
   restartKafka
-  echo "\n$size\n" >> $filename
+  echo -e "\n$size\n" >> $filename
   produceEnoughMsg $size
   cd $rootPath
-  ./kafkaconsumer -c ../conf/kafkaConsumer-16-1.json > output.log &
-  sleep 1m
+  ./kafkaconsumer.sh -c ../conf/kafkaConsumer-16-1.json > output.log &
+  sleep 2m
   # kill RMQConsumerPerf
   PID=$(ps -ef | grep "KafkaConsumerPerf" | grep -v grep | awk '{print $2}')
   kill -9 $PID
