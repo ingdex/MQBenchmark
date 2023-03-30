@@ -9,7 +9,8 @@ def do_gen_conf(num_topics, message_size, async_enable):
     # 生成JSON数据
     json_data = []
     # filename = "rmqConsumer-{}-1-{}".format(num_topics, message_size)
-    filename = "rmqConsumer-{}-1".format(num_topics)
+    # filename = "rmqConsumer-{}-1".format(num_topics)
+    filename = "kafkaConsumer-{}-1".format(num_topics)
     if not async_enable:
         filename = filename + "-sync.json"
     else:
