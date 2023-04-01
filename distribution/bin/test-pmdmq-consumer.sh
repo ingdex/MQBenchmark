@@ -13,17 +13,8 @@ shutdownRocketMQ0() {
   PID=$(jps | grep $RocketMQProcessName | grep -v grep | awk '{print $1}')
   kill -9 $PID
   sleep 5s
-  rm $RocketMQLogDir/abort
-  rm $RocketMQLogDir/checkpoint
-  rm $RocketMQLogDir/lock
-  rm -r $RocketMQLogDir/commitlog
+  rm -r $RocketMQLogDir/rocketmq
   sleep 1s
-  rm -r $RocketMQLogDir/config
-  rm -r $RocketMQLogDir/consumequeue
-  sleep 1s
-  rm -r $RocketMQLogDir/index
-  sleep 1s
-  rm -r $RocketMQLogDir/rocketmqlogs
 }
 
 shutdownRocketMQ() {
@@ -52,7 +43,7 @@ produceEnoughMsg() {
   cd $rootPath
   ./rmqproducer.sh -c ../conf/rmq16-1-$1.json &
   while true; do
-    USAGE=$(df -h $rocketMQLogDir | awk '{print $5}' | tail -n 1 | sed 's/%//')
+    USAGE=$(df -h $RocketMQLogDir | awk '{print $5}' | tail -n 1 | sed 's/%//')
     if [ $USAGE -gt 60 ]; then
       echo "已用存储空间大于60%"
       # RMQProducerPerf
