@@ -54,6 +54,7 @@ export path=$(pwd)
 # sync pmdmq
 testTarget="sync-pmdmq"
 cp /root/broker-sync.conf $RocketMQPath/conf
+restartRocketMQ
 
 # sync producer
 # 外层循环遍历数字i，i的取值为8、16、32、64
@@ -94,6 +95,7 @@ done
 testTarget="async-pmdmq"
 
 cp /root/broker-async.conf $RocketMQPath/conf
+restartRocketMQ
 
 # sync producer
 # 外层循环遍历数字i，i的取值为8、16、32、64
