@@ -53,7 +53,7 @@ export path=$(pwd)
 
 # sync pmdmq
 testTarget="sync-pmdmq"
-cp /root/broker-sync.conf $RocketMQPath/conf
+cp /root/broker-sync.conf $RocketMQPath/conf/broker.conf
 restartRocketMQ
 
 # sync producer
@@ -94,7 +94,7 @@ done
 # async pmdmq
 testTarget="async-pmdmq"
 
-cp /root/broker-async.conf $RocketMQPath/conf
+cp /root/broker-async.conf $RocketMQPath/conf/broker.conf
 restartRocketMQ
 
 # sync producer
