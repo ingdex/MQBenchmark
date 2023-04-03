@@ -302,8 +302,7 @@ public class KafkaProducerPerf {
                             }
                         });
                     } else {
-
-                        //                                    producer.send(record).get();
+                        producer.send(record).get();
                         updateStatsSuccess(statsBenchmark, beginTimestamp);
                     }
                 }
