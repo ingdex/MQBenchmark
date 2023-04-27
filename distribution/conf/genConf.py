@@ -1,16 +1,17 @@
 import json
 
 # 设置topic的数量
-numTopics = [8, 16, 32]
-messageSize = [1024, 4096, 8192, 16384, 32768, 65536, 131072, 1048488]
+numTopics = [1, 4]
+messageSize = [1024, 4096, 8192, 16384, 32768, 65536, 131072, 1048576]
 asyncEnable = [True]
 
 def do_gen_conf(num_topics, message_size, async_enable):
     # 生成JSON数据
     json_data = []
+    filename = "rmq{}-1-{}".format(num_topics, message_size)
     # filename = "rmqConsumer-{}-1-{}".format(num_topics, message_size)
     # filename = "rmqConsumer-{}-1".format(num_topics)
-    filename = "kafkaConsumer-{}-1".format(num_topics)
+    # filename = "kafkaConsumer-{}-1".format(num_topics)
     if not async_enable:
         filename = filename + "-sync.json"
     else:
@@ -25,10 +26,10 @@ def do_gen_conf(num_topics, message_size, async_enable):
         #     "nameServer": "192.168.0.181:9876"
         # }
         # kafka consumer
-        data = {
-            "topic": topic,
-            "bootstrapServer": "192.168.0.200:9092"
-        }
+        # data = {
+        #     "topic": topic,
+        #     "bootstrapServer": "192.168.0.200:9092"
+        # }
 
         # Kafka producer
         # data = {
@@ -42,22 +43,22 @@ def do_gen_conf(num_topics, message_size, async_enable):
         # }
 
         # rmq producer
-        # data = {
-        #     "topic": topic,
-        #     "topicCount": 1,
-        #     "messageSize": message_size,
-        #     "keyEnable": False,
-        #     "propertySize": 0,
-        #     "tagCount": 0,
-        #     "msgTraceEnable": False,
-        #     "aclEnable": False,
-        #     "messageNum": 0,
-        #     "delayEnable": False,
-        #     "delayLevel": 1,
-        #     "asyncEnable": async_enable,
-        #     "threadNum": 1,
-        #     "nameServer": "192.168.0.181:9876"
-        # }
+        data = {
+            "topic": topic,
+            "topicCount": 1,
+            "messageSize": message_size,
+            "keyEnable": False,
+            "propertySize": 0,
+            "tagCount": 0,
+            "msgTraceEnable": False,
+            "aclEnable": False,
+            "messageNum": 0,
+            "delayEnable": False,
+            "delayLevel": 1,
+            "asyncEnable": async_enable,
+            "threadNum": 1,
+            "nameServer": "192.168.0.181:9876"
+        }
         json_data.append(data)
 
     # 将JSON数据输出到文件中
