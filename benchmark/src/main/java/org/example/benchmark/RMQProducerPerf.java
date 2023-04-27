@@ -363,8 +363,8 @@ public class RMQProducerPerf {
                                 int factor = getLoadFactor(messageSize);
                                 while (currentLoadFactor.get() + factor > loadThreshold.get()) {
                                     if (loadThreshold.get() < factor) {
-                                        loadThreshold.set(factor);
-                                        break;
+                                        loadThreshold.addAndGet(factor);
+//                                        break;
                                     }
                                     Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
