@@ -51,12 +51,17 @@ doTest() {
   echo "\n$1\n" >>$2
   # 执行程序A，并将其输出重定向到文件中
   ./kafkaproducer.sh -c ../conf/$1 >output.log &
+  dstat -d > dstat.log &
   sleep 4m
   # RMQProducerPerf
   PID=$(ps -ef | grep "KafkaProducerPerf" | grep -v grep | awk '{print $2}')
   kill -9 $PID
-  sleep 5s
+  sleep 2s
+  PID=$(ps -ef | grep "dstat" | grep -v grep | awk '{print $2}')
+  kill -9 $PID
+  sleep 2s
   grep -o '^Current Time: .*' output.log >>$2
+  cat dstat.log >> $2
 }
 
 export path=$(pwd)
@@ -104,4 +109,3 @@ for i in 1 4 8; do
     doTest $configFilename $resultFilename
   done
 done
-

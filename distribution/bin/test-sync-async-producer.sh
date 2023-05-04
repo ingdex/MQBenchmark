@@ -42,14 +42,19 @@ restartRocketMQ() {
 doTest() {
   echo "\n$1\n" >>$2
   # 执行程序A，并将其输出重定向到文件中
+  dstat -d > dstat.log &
   ./rmqproducer.sh -c ../conf/$1 > output.log &
-  sleep 4m
+  sleep 3m
   # RMQProducerPerf
   PID=$(ps -ef | grep "RMQProducerPerf" | grep -v grep | awk '{print $2}')
   kill -9 $PID
-  sleep 10s
+  sleep 2s
+  PID=$(ps -ef | grep "dstat" | grep -v grep | awk '{print $2}')
+  kill -9 $PID
+  sleep 2s
   # 获取输出文件中第2到11行以"Current Time: "开头的内容，并将结果打印出来
   grep -o '^Current Time: .*' output.log >> $2
+  cat dstat.log >> $2
 }
 
 export path=$(pwd)
@@ -62,7 +67,7 @@ restartRocketMQ
 
 # async producer
 # 外层循环遍历数字i，i的取值为8、16、32、64
-for i in 1 4 8; do
+for i in 16 32 64; do
   # 内层循环遍历数字j，j的取值为1024、4096、8192、16384、32768、65536、131072、1048576
   for j in 1024 4096 8192 16384 32768 65536 131072 1048576; do
     USAGE=$(df -h $RocketMQLogDir | awk '{print $5}' | tail -n 1 | sed 's/%//')
@@ -71,7 +76,7 @@ for i in 1 4 8; do
       restartRocketMQ
     fi
     configFilename="rmq$i-1-$j.json"
-    resultFilename="result-$testTarget-async-producer.txt"
+    resultFilename="result-$testTarget-async-producer-16-64.txt"
     cd $path
     doTest $configFilename $resultFilename
   done
@@ -87,7 +92,7 @@ restartRocketMQ
 
 # async producer
 # 外层循环遍历数字i，i的取值为8、16、32、64
-for i in 1 4 8; do
+for i in 16 32 64; do
   # 内层循环遍历数字j，j的取值为1024、4096、8192、16384、32768、65536、131072、1048576
   for j in 1024 4096 8192 16384 32768 65536 131072 1048576; do
     USAGE=$(df -h $RocketMQLogDir | awk '{print $5}' | tail -n 1 | sed 's/%//')
@@ -96,7 +101,7 @@ for i in 1 4 8; do
       restartRocketMQ
     fi
     configFilename="rmq$i-1-$j.json"
-    resultFilename="result-$testTarget-async-producer.txt"
+    resultFilename="result-$testTarget-async-producer-16-64.txt"
     cd $path
     doTest $configFilename $resultFilename
   done
