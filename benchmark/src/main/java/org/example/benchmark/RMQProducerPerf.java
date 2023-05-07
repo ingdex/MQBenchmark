@@ -68,7 +68,7 @@ public class RMQProducerPerf {
     //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private byte[] msgBody;
-    private final int MAX_LOAD_FACTOR = 5120;
+    private final int MAX_LOAD_FACTOR = 20480;
     private AtomicInteger loadThreshold = new AtomicInteger(MAX_LOAD_FACTOR);
     private AtomicInteger currentLoadFactor = new AtomicInteger(0);
     private final int sendThreshold = 32;
