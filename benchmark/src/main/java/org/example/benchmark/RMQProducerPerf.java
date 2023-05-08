@@ -68,11 +68,11 @@ public class RMQProducerPerf {
     //    private static DefaultMQProducer producer = null;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private byte[] msgBody;
-    private final int MAX_LOAD_FACTOR = 20480;
+    private final int MAX_LOAD_FACTOR = 5120;
     private AtomicInteger loadThreshold = new AtomicInteger(MAX_LOAD_FACTOR);
     private AtomicInteger currentLoadFactor = new AtomicInteger(0);
     private final int sendThreshold = 32;
-    private final int SLEEP_FOR_A_WHILE = 100;
+    private final int SLEEP_FOR_A_WHILE = 1;
     private AtomicBoolean running = new AtomicBoolean(true);
 
     public static void main(String[] args) throws FileNotFoundException, InterruptedException {
@@ -361,12 +361,12 @@ public class RMQProducerPerf {
                                 ThreadPoolExecutor e = (ThreadPoolExecutor) producer.getDefaultMQProducerImpl().getAsyncSenderExecutor();
                                 // Flow control
                                 int factor = getLoadFactor(messageSize);
-                                while (currentLoadFactor.get() + factor > loadThreshold.get()) {
-                                    if (loadThreshold.get() < factor) {
-                                        loadThreshold.addAndGet(factor);
-//                                        break;
-                                    }
-                                    Thread.sleep(SLEEP_FOR_A_WHILE);
+                                while (currentLoadFactor.get() + factor > MAX_LOAD_FACTOR) {
+//                                    if (loadThreshold.get() < factor) {
+//                                        loadThreshold.addAndGet(factor);
+////                                        break;
+//                                    }
+//                                    Thread.sleep(SLEEP_FOR_A_WHILE);
 //                                    System.out.println("sleep for a while");
 //                                    log.info(String.format("sleep for a while, currentLoadFactor = %d, factor = %d, loadThreshold = %d", x, factor, y));
                                 }
@@ -376,15 +376,15 @@ public class RMQProducerPerf {
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp);
                                         currentLoadFactor.addAndGet(-factor);
-                                        int count = successCounter.incrementAndGet();
-                                        log.info("send sucesss successCounter set to" + count);
-                                        if (count == sendThreshold) {
-                                            successCounter.set(0);
-                                            if (loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
-                                                loadThreshold.addAndGet(factor);
-                                                log.info("increase loadThreshold from " + (loadThreshold.get() - factor) + " to " + loadThreshold.get());
-                                            }
-                                        }
+//                                        int count = successCounter.incrementAndGet();
+//                                        log.info("send sucesss successCounter set to" + count);
+//                                        if (count == sendThreshold) {
+//                                            successCounter.set(0);
+//                                            if (loadThreshold.get() + factor < MAX_LOAD_FACTOR) {
+//                                                loadThreshold.addAndGet(factor);
+//                                                log.info("increase loadThreshold from " + (loadThreshold.get() - factor) + " to " + loadThreshold.get());
+//                                            }
+//                                        }
                                     }
 
                                     @Override
@@ -392,11 +392,11 @@ public class RMQProducerPerf {
 //                                        log.info("here " + e.toString());
                                         statsBenchmark.getSendRequestFailedCount().increment();
                                         currentLoadFactor.addAndGet(-factor);
-                                        loadThreshold.set(loadThreshold.get() >> 1);
-//                                        loadThreshold.set(currentLoadFactor.addAndGet(-factor));
-                                        successCounter.set(0);
-                                        log.info(String.format("On exception, loadThreshold set to %d", loadThreshold.get()));
-                                        log.info(e.toString());
+//                                        loadThreshold.set(loadThreshold.get() >> 1);
+////                                        loadThreshold.set(currentLoadFactor.addAndGet(-factor));
+//                                        successCounter.set(0);
+//                                        log.info(String.format("On exception, loadThreshold set to %d", loadThreshold.get()));
+//                                        log.info(e.toString());
                                     }
                                 });
                             } else {
