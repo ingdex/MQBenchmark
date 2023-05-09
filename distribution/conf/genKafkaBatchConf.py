@@ -39,7 +39,7 @@ def do_gen_conf(num_topics, message_size, async_enable):
             "topicNum": 1,
             "messageNum": 0,
             "messageSize": realMessageSize,
-            "producerProps": ["bootstrap.servers=192.168.0.200:9092", "batch.size={}".format(realMessageSize), "max.in.flight.requests.per.connection={}".format(int(5120/max(4, message_size/1024)))],
+            "producerProps": ["bootstrap.servers=192.168.0.200:9092", "batch.size=16384", "max.in.flight.requests.per.connection={}".format(int(5120/max(4, message_size/1024)))],
             "threadNum": 1,
             "asyncEnable": async_enable
         }
