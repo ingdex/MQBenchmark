@@ -85,7 +85,7 @@ public class RMQConsumerPerf {
                     e.printStackTrace();
                 }
             }
-        }, 10000, 10000, TimeUnit.MILLISECONDS);
+        }, 1000, 1000, TimeUnit.MILLISECONDS);
 
         for (int i=0; i<rmqConfs.length; i++) {
             RMQConf conf = rmqConfs[i];
