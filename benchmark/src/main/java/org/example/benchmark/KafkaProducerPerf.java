@@ -48,27 +48,24 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
-import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+//import java.util.logging.FileHandler;
+//import java.util.logging.Formatter;
+//import java.util.logging.Level;
+//import java.util.logging.LogRecord;
+//import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+//class Main {
+//    final Logger logger = LoggerFactory.getLogger(getClass());
+//}
 public class KafkaProducerPerf {
     private org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private static AtomicBoolean running = new AtomicBoolean(true);
 
-    public static Logger log = Logger.getLogger("tesglog");
+    public static Logger log = LoggerFactory.getLogger("FILE");
 
-    static class LogFormatter extends Formatter {
-        @Override
-        public String format(LogRecord record) {
-
-            return record.getMessage() + "\n";
-        }
-
-    }
 
     public static void main(String[] args) throws IOException, InterruptedException {
         if (args.length != 2 || !args[0].equals("-c")) {
@@ -83,10 +80,6 @@ public class KafkaProducerPerf {
         for (KafkaConf conf: kafkaConfs) {
             System.out.println(gson.toJson(conf));
         }
-        FileHandler fileHandler = new FileHandler("kafka.log");
-        fileHandler.setLevel(Level.ALL);
-        fileHandler.setFormatter(new LogFormatter());
-        log.addHandler(fileHandler);
 
         StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
         ExecutorService sendThreadPool = Executors.newFixedThreadPool(kafkaConfs.length);
