@@ -374,7 +374,7 @@ public class RMQProducerPerf {
                                 producer.send(msg, new SendCallback() {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
-                                        updateStatsSuccess(statsBenchmark, beginTimestamp);
+                                        updateStatsSuccess(statsBenchmark, beginTimestamp, log);
                                         currentLoadFactor.addAndGet(-factor);
 //                                        int count = successCounter.incrementAndGet();
 //                                        log.info("send sucesss successCounter set to" + count);
@@ -401,7 +401,7 @@ public class RMQProducerPerf {
                                 });
                             } else {
                                 producer.send(msg);
-                                updateStatsSuccess(statsBenchmark, beginTimestamp);
+                                updateStatsSuccess(statsBenchmark, beginTimestamp, log);
                             }
                         } catch (RemotingException e) {
                             statsBenchmark.getSendRequestFailedCount().increment();
@@ -457,10 +457,11 @@ public class RMQProducerPerf {
         }
     }
 
-    private static void updateStatsSuccess(StatsBenchmarkProducer statsBenchmark, long beginTimestamp) {
+    private static void updateStatsSuccess(StatsBenchmarkProducer statsBenchmark, long beginTimestamp, InternalLogger log) {
         statsBenchmark.getSendRequestSuccessCount().increment();
         statsBenchmark.getReceiveResponseSuccessCount().increment();
         final long currentRT = System.currentTimeMillis() - beginTimestamp;
+        log.info("currentRT = " + currentRT);
         statsBenchmark.getSendMessageSuccessTimeTotal().add(currentRT);
         long prevMaxRT = statsBenchmark.getSendMessageMaxRT().longValue();
         while (currentRT > prevMaxRT) {
@@ -470,6 +471,7 @@ public class RMQProducerPerf {
 
             prevMaxRT = statsBenchmark.getSendMessageMaxRT().longValue();
         }
+
     }
 
     public static Options buildCommandlineOptions(final Options options) {

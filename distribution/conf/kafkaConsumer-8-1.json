@@ -1,34 +1,42 @@
 [
   {
     "topic": "topic0",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   },
   {
     "topic": "topic1",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   },
   {
     "topic": "topic2",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   },
   {
     "topic": "topic3",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   },
   {
     "topic": "topic4",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   },
   {
     "topic": "topic5",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   },
   {
     "topic": "topic6",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   },
   {
     "topic": "topic7",
-    "bootstrapServer": "192.168.0.200:9092"
+    "bootstrapServer": "192.168.0.200:9092",
+    "max.poll.records": 1
   }
 ]

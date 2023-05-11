@@ -48,13 +48,29 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
+import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 public class KafkaProducerPerf {
     private org.apache.kafka.clients.producer.KafkaProducer<byte[], byte[]> producer;
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private static AtomicBoolean running = new AtomicBoolean(true);
 
-    public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+    public static Logger log = Logger.getLogger("tesglog");
+
+    static class LogFormatter extends Formatter {
+        @Override
+        public String format(LogRecord record) {
+
+            return record.getMessage() + "\n";
+        }
+
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
         if (args.length != 2 || !args[0].equals("-c")) {
             System.out.println("Usage: kafkaproducer -c CONFIG.json");
             return;
@@ -67,6 +83,11 @@ public class KafkaProducerPerf {
         for (KafkaConf conf: kafkaConfs) {
             System.out.println(gson.toJson(conf));
         }
+        FileHandler fileHandler = new FileHandler("kafka.log");
+        fileHandler.setLevel(Level.ALL);
+        fileHandler.setFormatter(new LogFormatter());
+        log.addHandler(fileHandler);
+
         StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
         ExecutorService sendThreadPool = Executors.newFixedThreadPool(kafkaConfs.length);
         ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
@@ -298,12 +319,12 @@ public class KafkaProducerPerf {
                                     e.printStackTrace();
                                     return;
                                 }
-                                updateStatsSuccess(statsBenchmark, beginTimestamp);
+                                updateStatsSuccess(statsBenchmark, beginTimestamp, log);
                             }
                         });
                     } else {
                         producer.send(record).get();
-                        updateStatsSuccess(statsBenchmark, beginTimestamp);
+                        updateStatsSuccess(statsBenchmark, beginTimestamp, log);
                     }
                 }
             }
@@ -335,10 +356,11 @@ public class KafkaProducerPerf {
         }
     }
 
-    private static void updateStatsSuccess(StatsBenchmarkProducer statsBenchmark, long beginTimestamp) {
+    private static void updateStatsSuccess(StatsBenchmarkProducer statsBenchmark, long beginTimestamp, Logger log) {
         statsBenchmark.getSendRequestSuccessCount().increment();
         statsBenchmark.getReceiveResponseSuccessCount().increment();
         final long currentRT = System.currentTimeMillis() - beginTimestamp;
+        log.info(String.valueOf(currentRT));
         statsBenchmark.getSendMessageSuccessTimeTotal().add(currentRT);
         long prevMaxRT = statsBenchmark.getSendMessageMaxRT().longValue();
         while (currentRT > prevMaxRT) {
