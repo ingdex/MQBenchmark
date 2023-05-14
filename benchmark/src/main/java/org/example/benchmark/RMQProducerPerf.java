@@ -390,6 +390,7 @@ public class RMQProducerPerf {
                                     @Override
                                     public void onException(Throwable e) {
 //                                        log.info("here " + e.toString());
+                                        log.info("currentRT = " + (beginTimestamp - System.nanoTime()));
                                         statsBenchmark.getSendRequestFailedCount().increment();
                                         currentLoadFactor.addAndGet(-factor);
 //                                        loadThreshold.set(loadThreshold.get() >> 1);
