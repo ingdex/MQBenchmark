@@ -354,7 +354,7 @@ public class KafkaProducerPerf {
         statsBenchmark.getReceiveResponseSuccessCount().increment();
         final long currentRT = System.currentTimeMillis() - beginTimestamp;
 //        System.out.println("test");
-        log.info(String.valueOf(currentRT));
+        log.warn(String.valueOf(currentRT));
         statsBenchmark.getSendMessageSuccessTimeTotal().add(currentRT);
         long prevMaxRT = statsBenchmark.getSendMessageMaxRT().longValue();
         while (currentRT > prevMaxRT) {
