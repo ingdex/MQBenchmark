@@ -64,7 +64,7 @@ public class KafkaProducerPerf {
 //    private static StatsBenchmarkProducer statsBenchmark = null;
     private static AtomicBoolean running = new AtomicBoolean(true);
 
-    public static Logger log = LoggerFactory.getLogger("FILE");
+    public static Logger log = LoggerFactory.getLogger(KafkaProducerPerf.class);
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -353,7 +353,7 @@ public class KafkaProducerPerf {
         statsBenchmark.getSendRequestSuccessCount().increment();
         statsBenchmark.getReceiveResponseSuccessCount().increment();
         final long currentRT = System.currentTimeMillis() - beginTimestamp;
-        System.out.println("test");
+//        System.out.println("test");
         log.info(String.valueOf(currentRT));
         statsBenchmark.getSendMessageSuccessTimeTotal().add(currentRT);
         long prevMaxRT = statsBenchmark.getSendMessageMaxRT().longValue();
