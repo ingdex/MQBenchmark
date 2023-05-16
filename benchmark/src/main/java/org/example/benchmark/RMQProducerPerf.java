@@ -409,11 +409,24 @@ public class RMQProducerPerf {
                                     }
                                 });
                             } else {
+
+                                int factor = getLoadFactor(messageSize) * 50;
+                                while (currentLoadFactor.get() + factor > MAX_LOAD_FACTOR) {
+//                                    if (loadThreshold.get() < factor) {
+//                                        loadThreshold.addAndGet(factor);
+////                                        break;
+//                                    }
+//                                    Thread.sleep(SLEEP_FOR_A_WHILE);
+//                                    System.out.println("sleep for a while");
+//                                    log.info(String.format("sleep for a while, currentLoadFactor = %d, factor = %d, loadThreshold = %d", x, factor, y));
+                                }
+                                currentLoadFactor.addAndGet(factor);
+
                                 producer.send(msgs, new SendCallback() {
                                     @Override
                                     public void onSuccess(SendResult sendResult) {
                                         updateStatsSuccess(statsBenchmark, beginTimestamp, log, 50);
-//                                        currentLoadFactor.addAndGet(-factor);
+                                        currentLoadFactor.addAndGet(-factor);
                                     }
 
                                     @Override
@@ -421,7 +434,7 @@ public class RMQProducerPerf {
 //                                        log.info("here " + e.toString());
                                         log.info("currentRT = " + (beginTimestamp - System.nanoTime()));
                                         statsBenchmark.getSendRequestFailedCount().add(50);
-//                                        currentLoadFactor.addAndGet(-factor);
+                                        currentLoadFactor.addAndGet(-factor);
 //                                        loadThreshold.set(loadThreshold.get() >> 1);
 ////                                        loadThreshold.set(currentLoadFactor.addAndGet(-factor));
 //                                        successCounter.set(0);
