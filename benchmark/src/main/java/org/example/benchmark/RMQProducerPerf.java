@@ -80,13 +80,13 @@ public class RMQProducerPerf {
             System.out.println("Usage: RMQProducerPerf -c CONFIG.json");
             return;
         }
-        System.setProperty("rocketmq.client.logRoot","/root/clientLog");
+        System.setProperty("rocketmq.client.logRoot", "/root/clientLog");
         String path = args[1];
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(path));
         RMQConf[] rmqConfs = gson.fromJson(reader, RMQConf[].class);
         System.out.println("Found " + rmqConfs.length + " rmqConf:");
-        for (RMQConf conf: rmqConfs) {
+        for (RMQConf conf : rmqConfs) {
             System.out.println(gson.toJson(conf));
         }
         StatsBenchmarkProducer statsBenchmark = new StatsBenchmarkProducer();
@@ -107,7 +107,7 @@ public class RMQProducerPerf {
         executorService.scheduleAtFixedRate(new TimerTask() {
             private void printStats() {
                 if (snapshotList.size() >= 10) {
-                    doPrintStats(snapshotList,  statsBenchmark, false);
+                    doPrintStats(snapshotList, statsBenchmark, false);
                 }
             }
 
@@ -121,11 +121,11 @@ public class RMQProducerPerf {
             }
         }, 1000, 1000, TimeUnit.MILLISECONDS);
 
-        for (int i=0; i<rmqConfs.length; i++) {
+        for (int i = 0; i < rmqConfs.length; i++) {
             RMQConf conf = rmqConfs[i];
             String[] subArgs = toArgs(conf);
             StringBuilder sb = new StringBuilder();
-            for (String arg: subArgs) {
+            for (String arg : subArgs) {
                 sb.append(arg + " ");
             }
             System.out.println("subArgs: " + sb.toString());
@@ -233,6 +233,7 @@ public class RMQProducerPerf {
     public void start(String[] args, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
         start(args, null, statsBenchmark, producerGroup, id);
     }
+
     public void start(String[] args, DefaultMQProducer defaultMQProducer, final StatsBenchmarkProducer statsBenchmark, String producerGroup, int id) throws MQClientException {
         System.setProperty(RemotingCommand.SERIALIZE_TYPE_PROPERTY, SerializeType.ROCKETMQ.name());
 
@@ -257,7 +258,7 @@ public class RMQProducerPerf {
         final int threadNum = commandLine.hasOption('w') ? Integer.parseInt(commandLine.getOptionValue('w')) : 4;
         final List<String> topicList = new ArrayList<>();
         if (topicCount > 1) {
-            for (int i=0; i<topicCount; i++) {
+            for (int i = 0; i < topicCount; i++) {
                 int numberOfDigits = SLMathUtil.getNumberOfDigits(topicCount);
 //            String format = String.format("%%s%%0%dd", numberOfDigits);
                 String format = "%s%d";
@@ -327,6 +328,13 @@ public class RMQProducerPerf {
                     while (running.get()) {
                         try {
                             final Message msg = buildMessage(topicThisThread);
+                            List<Message> msgs = new ArrayList<>();
+                            for (int i = 0; i < 50; i++) {
+                                msgs.add(msg);
+                            }
+//                            msgs.add(new Message(topic, "TagA", "OrderID001", "Hello world 0".getBytes()));
+//                            msgs.add(new Message(topic, "TagA", "OrderID002", "Hello world 1".getBytes()));
+//                            msgs.add(new Message(topic, "TagA", "OrderID003", "Hello world 2".getBytes()));
                             final long beginTimestamp = System.currentTimeMillis();
                             if (keyEnable) {
                                 msg.setKeys(String.valueOf(beginTimestamp / 1000));
@@ -401,8 +409,26 @@ public class RMQProducerPerf {
                                     }
                                 });
                             } else {
-                                producer.send(msg);
-                                updateStatsSuccess(statsBenchmark, beginTimestamp, log);
+                                producer.send(msgs, new SendCallback() {
+                                    @Override
+                                    public void onSuccess(SendResult sendResult) {
+                                        updateStatsSuccess(statsBenchmark, beginTimestamp, log, 50);
+//                                        currentLoadFactor.addAndGet(-factor);
+                                    }
+
+                                    @Override
+                                    public void onException(Throwable e) {
+//                                        log.info("here " + e.toString());
+                                        log.info("currentRT = " + (beginTimestamp - System.nanoTime()));
+                                        statsBenchmark.getSendRequestFailedCount().add(50);
+//                                        currentLoadFactor.addAndGet(-factor);
+//                                        loadThreshold.set(loadThreshold.get() >> 1);
+////                                        loadThreshold.set(currentLoadFactor.addAndGet(-factor));
+//                                        successCounter.set(0);
+//                                        log.info(String.format("On exception, loadThreshold set to %d", loadThreshold.get()));
+//                                        log.info(e.toString());
+                                    }
+                                });
                             }
                         } catch (RemotingException e) {
                             statsBenchmark.getSendRequestFailedCount().increment();
@@ -461,6 +487,23 @@ public class RMQProducerPerf {
     private static void updateStatsSuccess(StatsBenchmarkProducer statsBenchmark, long beginTimestamp, InternalLogger log) {
         statsBenchmark.getSendRequestSuccessCount().increment();
         statsBenchmark.getReceiveResponseSuccessCount().increment();
+        final long currentRT = System.currentTimeMillis() - beginTimestamp;
+        log.info("currentRT = " + currentRT);
+        statsBenchmark.getSendMessageSuccessTimeTotal().add(currentRT);
+        long prevMaxRT = statsBenchmark.getSendMessageMaxRT().longValue();
+        while (currentRT > prevMaxRT) {
+            boolean updated = statsBenchmark.getSendMessageMaxRT().compareAndSet(prevMaxRT, currentRT);
+            if (updated)
+                break;
+
+            prevMaxRT = statsBenchmark.getSendMessageMaxRT().longValue();
+        }
+
+    }
+
+    private static void updateStatsSuccess(StatsBenchmarkProducer statsBenchmark, long beginTimestamp, InternalLogger log, int count) {
+        statsBenchmark.getSendRequestSuccessCount().add(count);
+        statsBenchmark.getReceiveResponseSuccessCount().add(count);
         final long currentRT = System.currentTimeMillis() - beginTimestamp;
         log.info("currentRT = " + currentRT);
         statsBenchmark.getSendMessageSuccessTimeTotal().add(currentRT);
