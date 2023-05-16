@@ -37,6 +37,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.apache.rocketmq.srvutil.ServerUtil.buildCommandlineOptions;
 import static net.sourceforge.argparse4j.impl.Arguments.store;
@@ -66,6 +67,8 @@ public class KafkaProducerPerf {
 
     public static Logger log = LoggerFactory.getLogger(KafkaProducerPerf.class);
 
+    private final int MAX_LOAD_FACTOR = 5120;
+    private AtomicInteger currentLoadFactor = new AtomicInteger(0);
 
     public static void main(String[] args) throws IOException, InterruptedException {
         if (args.length != 2 || !args[0].equals("-c")) {
@@ -300,6 +303,12 @@ public class KafkaProducerPerf {
                 }
                 final String topicThisThread = topicList.get(i / threadPerTopic);
                 while (running.get()) {
+                    int factor = getLoadFactor(messageSize);
+                    while (currentLoadFactor.get() + factor > MAX_LOAD_FACTOR) {
+
+                    }
+
+                    currentLoadFactor.addAndGet(factor);
 //                            byte[] payload = generateRandomPayload(messageSize, payloadByteList, random);
                     ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(topicThisThread, payload);
                     long beginTimestamp = System.currentTimeMillis();
@@ -313,6 +322,7 @@ public class KafkaProducerPerf {
                                     return;
                                 }
                                 updateStatsSuccess(statsBenchmark, beginTimestamp, log);
+                                currentLoadFactor.addAndGet(-factor);
                             }
                         });
                     } else {
@@ -347,6 +357,10 @@ public class KafkaProducerPerf {
                 Exit.exit(1);
             }
         }
+    }
+
+    public static int getLoadFactor(int msgSize) {
+        return Math.max(msgSize >> 10, 4);
     }
 
     private static void updateStatsSuccess(StatsBenchmarkProducer statsBenchmark, long beginTimestamp, Logger log) {
